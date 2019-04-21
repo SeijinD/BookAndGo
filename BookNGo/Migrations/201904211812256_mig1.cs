@@ -3,7 +3,7 @@ namespace BookNGo.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class mig2 : DbMigration
+    public partial class mig1 : DbMigration
     {
         public override void Up()
         {
@@ -33,22 +33,19 @@ namespace BookNGo.Migrations
                         Picture = c.Binary(),
                         Category_CategoryId = c.Int(),
                         Location_LocationId = c.Int(),
-                        Availability_AvailabilityId = c.Int(),
                     })
                 .PrimaryKey(t => t.HouseId)
                 .ForeignKey("dbo.Categories", t => t.Category_CategoryId)
                 .ForeignKey("dbo.Locations", t => t.Location_LocationId)
-                .ForeignKey("dbo.Availabilities", t => t.Availability_AvailabilityId)
                 .Index(t => t.Category_CategoryId)
-                .Index(t => t.Location_LocationId)
-                .Index(t => t.Availability_AvailabilityId);
+                .Index(t => t.Location_LocationId);
             
             CreateTable(
                 "dbo.Categories",
                 c => new
                     {
                         CategoryId = c.Int(nullable: false, identity: true),
-                        NameCategory = c.String(nullable: false, maxLength: 255),
+                        CategoryName = c.String(nullable: false, maxLength: 255),
                     })
                 .PrimaryKey(t => t.CategoryId);
             
@@ -57,7 +54,7 @@ namespace BookNGo.Migrations
                 c => new
                     {
                         FeatureId = c.Int(nullable: false, identity: true),
-                        NameFeature = c.String(nullable: false, maxLength: 255),
+                        FeatureName = c.String(nullable: false, maxLength: 255),
                     })
                 .PrimaryKey(t => t.FeatureId);
             
@@ -77,7 +74,7 @@ namespace BookNGo.Migrations
                         ReservationId = c.Int(nullable: false, identity: true),
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
-                        OccupantsNumber = c.Int(nullable: false),
+                        NumberOfOccupants = c.Int(nullable: false),
                         DateOfBooking = c.DateTime(nullable: false),
                         Comments = c.String(),
                         PriceCharged = c.Decimal(nullable: false, precision: 18, scale: 2),
@@ -134,7 +131,6 @@ namespace BookNGo.Migrations
             DropForeignKey("dbo.Users", "Location_LocationId", "dbo.Locations");
             DropForeignKey("dbo.Users", "HouseId_HouseId", "dbo.Houses");
             DropForeignKey("dbo.Reservations", "House_HouseId", "dbo.Houses");
-            DropForeignKey("dbo.Houses", "Availability_AvailabilityId", "dbo.Availabilities");
             DropForeignKey("dbo.Availabilities", "HouseId_HouseId", "dbo.Houses");
             DropForeignKey("dbo.Houses", "Location_LocationId", "dbo.Locations");
             DropForeignKey("dbo.FeatureHouses", "House_HouseId", "dbo.Houses");
@@ -146,7 +142,6 @@ namespace BookNGo.Migrations
             DropIndex("dbo.Users", new[] { "HouseId_HouseId" });
             DropIndex("dbo.Reservations", new[] { "User_UserId" });
             DropIndex("dbo.Reservations", new[] { "House_HouseId" });
-            DropIndex("dbo.Houses", new[] { "Availability_AvailabilityId" });
             DropIndex("dbo.Houses", new[] { "Location_LocationId" });
             DropIndex("dbo.Houses", new[] { "Category_CategoryId" });
             DropIndex("dbo.Availabilities", new[] { "HouseId_HouseId" });
