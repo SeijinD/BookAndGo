@@ -17,8 +17,10 @@ namespace BookNGo.Models
         [Required(ErrorMessage = "Start Date Required")]
         public DateTime StartDate { get; set; }
 
-        [Display(Name = "End Date")]
-        [Required(ErrorMessage = "End Date Required")]
+        [Display(Name = "First Name")]
+        [Required(ErrorMessage = "First Name Required")]
         public DateTime EndDate { get; set; }
+
+        public virtual ICollection<House> Houses{ get; set; }//πολλα χαρακτηριστικα ανηκουν σε πολλα σπιτια(n-n)
     }
 }

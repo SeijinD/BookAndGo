@@ -187,10 +187,6 @@
     <Compile Include="Migrations\201904211251241_mig2.Designer.cs">
       <DependentUpon>201904211251241_mig2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904211518405_mig21.cs" />
-    <Compile Include="Migrations\201904211518405_mig21.Designer.cs">
-      <DependentUpon>201904211518405_mig21.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BookNGoContext.cs" />
@@ -284,9 +280,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904211251241_mig2.resx">
       <DependentUpon>201904211251241_mig2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904211518405_mig21.resx">
-      <DependentUpon>201904211518405_mig21.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
