@@ -8,7 +8,7 @@ namespace BookNGo.Models
 {
     public class BookNGoContext : DbContext
     {
-        const string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=BookNGo;Integrated Security=True";
+        const string connectionString = @"Data Source=localhost;Initial Catalog=BookNGo;Integrated Security=True";
 
         public BookNGoContext() : base(connectionString) { }
 
