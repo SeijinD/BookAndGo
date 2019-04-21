@@ -22,9 +22,9 @@ namespace BookNGo.Models
 
         public DbSet<Feature> Features { get; set; }
 
-        public DbSet<UserType> UserTypes { get; set; }
-
         public DbSet<Location> Locations { get; set; }
+
+        public DbSet<Availability> Availabilities { get; set; }
 
     }
 }
