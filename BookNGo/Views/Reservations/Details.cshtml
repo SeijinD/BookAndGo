@@ -1,0 +1,66 @@
+﻿@model BookNGo.Models.Reservation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reservation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfOccupants)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfOccupants)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBooking)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBooking)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceCharged)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceCharged)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ReservationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
