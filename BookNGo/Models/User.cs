@@ -26,7 +26,7 @@ namespace BookNGo.Models
         [StringLength(255)]
         public string UserName { get; set; }
 
-        [Display(Name = "e-mail")]
+        [Display(Name = "E-mail")]
         [Required(ErrorMessage = "e-mail Required")]
         [StringLength(255)]
         [DataType(DataType.EmailAddress)]
@@ -53,6 +53,6 @@ namespace BookNGo.Models
 
         public House HouseId { get; set; } //ενας χρηστης εχει πολλα σπιτια(1-n)
 
-        public Location Location { get; set; } //πολλα χρηστες ανηκουν στην ιδια περιοχη(1-n)
+        public Location Location { get; set; } //πολλοι χρηστες ανηκουν στην ιδια περιοχη(1-n)
     }
 }
