@@ -29,6 +29,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Picture)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
         <th></th>
     </tr>
 
@@ -50,7 +53,7 @@
             @Html.DisplayFor(modelItem => item.PricePerNight)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Picture)
+            @Html.DisplayFor(modelItem => item.Category)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.HouseId }) |

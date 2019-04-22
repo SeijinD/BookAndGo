@@ -16,8 +16,8 @@ namespace BookNGo.Models
         [Required(ErrorMessage = "Start Date Required")]
         public DateTime StartDate { get; set; }
 
-        [Display(Name = "First Name")]
-        [Required(ErrorMessage = "First Name Required")]        
+        [Display(Name = "End Date")]
+        [Required(ErrorMessage = "End Date Required")]        
         public DateTime EndDate { get; set; }
 
         [Display(Name = "Occupants Number ")]
