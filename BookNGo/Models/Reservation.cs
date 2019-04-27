@@ -34,7 +34,7 @@ namespace BookNGo.Models
         [Required(ErrorMessage = "Price Charged Required")]
         public Decimal PriceCharged { get; set; }
 
-        public User User { get; set; } //πολλα Reservation ανηκουν σε εναν χρηστη(1-n)
+        public ApplicationUser ApplicationUser { get; set; } //πολλα Reservation ανηκουν σε εναν χρηστη(1-n)
 
         public House House { get; set; } //Πολλα Reservation ανηκουν σε ενα σπιτι (1-n)
 

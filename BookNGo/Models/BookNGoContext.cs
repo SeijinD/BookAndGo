@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BookNGo.Models
 {
-    public class BookNGoContext : DbContext
+    public class BookNGoContext : IdentityDbContext<ApplicationUser>
     {
-        const string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=BookNGo;Integrated Security=True";
+        public BookNGoContext() : base("DefaultConnection", throwIfV1Schema: false){}
 
-        public BookNGoContext() : base(connectionString) { }
-
-        public DbSet<User> Users { get; set; }
+        public static BookNGoContext Create()
+        {
+            return new BookNGoContext();
+        }
 
         public DbSet<Reservation> Reservations { get; set; }
 
@@ -25,6 +27,8 @@ namespace BookNGo.Models
         public DbSet<Location> Locations { get; set; }
 
         public DbSet<Availability> Availabilities { get; set; }
+
+        public DbSet<Image> Images { get; set; }
 
     }
 }

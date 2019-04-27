@@ -32,13 +32,12 @@ namespace BookNGo.Models
         [Required(ErrorMessage = "Price Required")]
         public Decimal PricePerNight { get; set; }
 
-        public byte[] Picture { get; set; }
+        public ICollection<Image> Images { get; set; } //ενα σπιτι εχει πολλα Image(1-n)
 
+        public Category Category { get; set; } //ενα category εχει πολλα House(1-n)
 
-        public Category Category { get; set; } //πολλα σπιτια ανηκουν στην ιδια κατηγορια(1-n)
+        public Location Location { get; set; }//μια περιοχη εχει πολλα House(1-n)
 
-        public Location Location { get; set; }//πολλα σπιτια ανηκουν στην ιδια περιοχη(1-n)
-
-        public virtual ICollection<Feature> Features { get; set; } //πολλα σπιτια εχουν πολλα χαρακτηριστικα(n-n)
+        public virtual ICollection<Feature> Features { get; set; } //πολλα House εχουν πολλα Feature(n-n)
     }
 }

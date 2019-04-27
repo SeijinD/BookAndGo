@@ -16,7 +16,7 @@ namespace BookNGo.Models
         [StringLength(255)]
         public string FeatureName { get; set; }
 
-        public virtual ICollection<House> Houses{ get; set; }//πολλα χαρακτηριστικα ανηκουν σε πολλα σπιτια(n-n)
+        public virtual ICollection<House> Houses{ get; set; }//πολλα Feature ανηκουν σε πολλα House(n-n)
 
     }
 }

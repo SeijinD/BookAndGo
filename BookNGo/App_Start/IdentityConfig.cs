@@ -42,7 +42,7 @@ namespace BookNGo
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<BookNGoContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
@@ -85,6 +85,16 @@ namespace BookNGo
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
+        }
+
+        internal Task CreateAsync(ApplicationUser user, string password, string firstName, string lastName, DateTime dateOfBirth, string gender)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal Task CreateAsync(ApplicationUser user, string password, object firstName, object lastName, object dateOfBirth, object gender)
+        {
+            throw new NotImplementedException();
         }
     }
 

@@ -18,6 +18,8 @@ namespace BookNGo.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private BookNGoContext db = new BookNGoContext();
+
         public AccountController()
         {
         }
@@ -134,15 +136,14 @@ namespace BookNGo.Controllers
             }
         }
 
-        //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
             return View();
         }
 
-        //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -150,8 +151,9 @@ namespace BookNGo.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            { 
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, Gender = model.Gender, DateOfBirth = model.DateOfBirth, CreatedAt = DateTime.Today, Location = model.Location};
+                
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

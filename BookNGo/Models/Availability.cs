@@ -11,7 +11,7 @@ namespace BookNGo.Models
         [Key]
         public int AvailabilityId { get; set; }
 
-        public House HouseId { get; set; } //ενα σπιτι εχει πολλες διαθεσιμες μερες(1-n)
+        public House HouseId { get; set; } //ενα House εχει πολλες Availability Days(1-n)
 
         [Display(Name = "Start Date")]
         [Required(ErrorMessage = "Start Date Required")]

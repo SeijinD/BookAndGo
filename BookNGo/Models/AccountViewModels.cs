@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookNGo.Models
 {
@@ -79,6 +81,25 @@ namespace BookNGo.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "First Name")]
+        [Required(ErrorMessage = "First Name Required")]
+        [StringLength(255)]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        [Required(ErrorMessage = "Last Name Required")]
+        [StringLength(255)]
+        public string LastName { get; set; }
+
+        [StringLength(255)]
+        public string Gender { get; set; }
+
+        [Display(Name = "BirthDay")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfBirth { get; set; }
+
+        public Location Location { get; set; } //ενα Location εχει πολλους User(1-n)
     }
 
     public class ResetPasswordViewModel
