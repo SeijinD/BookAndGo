@@ -151,14 +151,16 @@ namespace BookNGo.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
-            { 
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, Gender = model.Gender, DateOfBirth = model.DateOfBirth, CreatedAt = DateTime.Today, Location = model.Location};
-                
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, Gender = model.Gender, DateOfBirth = model.DateOfBirth, CreatedAt = DateTime.Today};   
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    var location = db.Locations.FirstOrDefault(i => i.LocationId == model.LocationId);
+                    var createdUser = db.Users.FirstOrDefault(i => i.Email == model.Email);
+                    createdUser.Location = location;
+                    db.SaveChanges();
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

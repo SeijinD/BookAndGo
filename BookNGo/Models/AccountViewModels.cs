@@ -100,6 +100,8 @@ namespace BookNGo.Models
         public DateTime DateOfBirth { get; set; }
 
         public Location Location { get; set; } //ενα Location εχει πολλους User(1-n)
+
+        public int LocationId { get; set; }
     }
 
     public class ResetPasswordViewModel
