@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<BookNGo.Models.House>
-
 @{
     ViewBag.Title = "Index";
 }
@@ -26,32 +25,45 @@
         <th>
             @Html.DisplayNameFor(model => model.PricePerNight)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxOccupancy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PricePerNight)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.HouseId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.HouseId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.HouseId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxOccupancy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PricePerNight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.LocationName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.HouseId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.HouseId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.HouseId })
+            </td>
+        </tr>
+    }
 
 </table>

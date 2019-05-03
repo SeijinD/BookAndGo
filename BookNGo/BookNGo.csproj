@@ -179,7 +179,6 @@
     <Compile Include="Controllers\FeaturesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HousesController.cs" />
-    <Compile Include="Controllers\HouseSearchController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -190,6 +189,10 @@
     <Compile Include="Migrations\201904271122234_mig1.cs" />
     <Compile Include="Migrations\201904271122234_mig1.Designer.cs">
       <DependentUpon>201904271122234_mig1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905031940027_mig2.cs" />
+    <Compile Include="Migrations\201905031940027_mig2.Designer.cs">
+      <DependentUpon>201905031940027_mig2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -387,11 +390,6 @@
     <Content Include="Views\Features\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Houses\Create.cshtml" />
-    <Content Include="Views\Houses\Delete.cshtml" />
-    <Content Include="Views\Houses\Details.cshtml" />
-    <Content Include="Views\Houses\Edit.cshtml" />
-    <Content Include="Views\Houses\Index.cshtml" />
     <Content Include="Views\Images\Create.cshtml" />
     <Content Include="Views\Images\Delete.cshtml" />
     <Content Include="Views\Images\Details.cshtml" />
@@ -426,10 +424,15 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\HouseSearch\Index.cshtml" />
+    <Content Include="Views\Houses\Index.cshtml" />
+    <Content Include="Views\Houses\Details.cshtml" />
+    <Content Include="Views\Houses\Create.cshtml" />
+    <Content Include="Views\Houses\Edit.cshtml" />
+    <Content Include="Views\Houses\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -439,6 +442,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904271122234_mig1.resx">
       <DependentUpon>201904271122234_mig1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905031940027_mig2.resx">
+      <DependentUpon>201905031940027_mig2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

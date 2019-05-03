@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using BookNGo.Models;
+using System.Security.Principal;
 
 namespace BookNGo
 {
@@ -85,6 +86,11 @@ namespace BookNGo
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
+        }
+
+        internal Task GetUserAsync(IPrincipal user)
+        {
+            throw new NotImplementedException();
         }
 
         internal Task CreateAsync(ApplicationUser user, string password, string firstName, string lastName, DateTime dateOfBirth, string gender)

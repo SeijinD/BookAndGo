@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BookNGo.Models
 {
     public class Location
-    {
+    {     
         [Key]
         public int LocationId { get; set; }
 
@@ -15,5 +15,6 @@ namespace BookNGo.Models
         [Required(ErrorMessage = "Location Required")]
         [StringLength(255)]
         public string LocationName { get; set; }
+
     }
 }

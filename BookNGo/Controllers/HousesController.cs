@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BookNGo.Models;
 
+
 namespace BookNGo.Controllers
 {
     public class HousesController : Controller
@@ -17,6 +18,7 @@ namespace BookNGo.Controllers
         // GET: Houses
         public ActionResult Index()
         {
+            
             return View(db.Houses.ToList());
         }
 
@@ -38,6 +40,7 @@ namespace BookNGo.Controllers
         // GET: Houses/Create
         public ActionResult Create()
         {
+            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
             return View();
         }
 
@@ -46,15 +49,17 @@ namespace BookNGo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight")] House house)
+        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId")] House house)
         {
             if (ModelState.IsValid)
             {
                 db.Houses.Add(house);
                 db.SaveChanges();
+                
+                
                 return RedirectToAction("Index");
             }
-
+            
             return View(house);
         }
 
