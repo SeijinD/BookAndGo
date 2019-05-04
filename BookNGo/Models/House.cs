@@ -40,6 +40,8 @@ namespace BookNGo.Models
 
         public int LocationId { get; set; }
 
+        public int CategoryId { get; set; }
+
         public virtual ICollection<Feature> Features { get; set; } //πολλα House εχουν πολλα Feature(n-n)
     }
 }

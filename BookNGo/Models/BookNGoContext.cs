@@ -29,6 +29,5 @@ namespace BookNGo.Models
         public DbSet<Availability> Availabilities { get; set; }
 
         public DbSet<Image> Images { get; set; }
-
     }
 }

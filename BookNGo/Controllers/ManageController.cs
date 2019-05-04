@@ -53,18 +53,8 @@ namespace BookNGo.Controllers
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index()
-        {
-            
-            var currectUserId = User.Identity.GetUserId();
-            if (currectUserId == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            else
-            {
-                ApplicationUser currentUser = await UserManager.FindByIdAsync(currectUserId);
-                return View(currentUser);
-            } 
+        {         
+            return View();
         }
 
         //

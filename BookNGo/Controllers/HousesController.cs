@@ -18,13 +18,15 @@ namespace BookNGo.Controllers
         // GET: Houses
         public ActionResult Index()
         {
-            var test = db.Houses.Include( x => x.Location).ToList();
-            return View(test);
+            var houseinclude = db.Houses.Include( x => x.Location).ToList();
+            houseinclude = db.Houses.Include(x => x.Category).ToList();
+            return View(houseinclude);
         }
 
         // GET: Houses/Details/5
         public ActionResult Details(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -41,6 +43,7 @@ namespace BookNGo.Controllers
         public ActionResult Create()
         {
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
             return View();
         }
 
@@ -49,12 +52,14 @@ namespace BookNGo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId")] House house)
+        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId")] House house)
         {
             if (ModelState.IsValid)
             {
                 var location = db.Locations.Where(x => x.LocationId == house.LocationId).FirstOrDefault();
                 house.Location = location;
+                var category = db.Categories.Where(x => x.CategoryId == house.CategoryId).FirstOrDefault();
+                house.Category = category;
                 db.Houses.Add(house);
                 db.SaveChanges();
                 
@@ -68,6 +73,8 @@ namespace BookNGo.Controllers
         // GET: Houses/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -85,10 +92,14 @@ namespace BookNGo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight")] House house)
+        public ActionResult Edit([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId")] House house)
         {
             if (ModelState.IsValid)
             {
+                var location = db.Locations.Where(x => x.LocationId == house.LocationId).FirstOrDefault();
+                house.Location = location;
+                var category = db.Categories.Where(x => x.CategoryId == house.CategoryId).FirstOrDefault();
+                house.Category = category;
                 db.Entry(house).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
