@@ -13,21 +13,22 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: HouseSearch
-        public ActionResult Index(string title, int? occupancy)
+        public ActionResult Index(string title, int occupancy = 0)
         {
-            //ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
-            List<House> listofhouses = db.Houses.ToList();
+            var query = db.Houses.AsQueryable();
 
-            var occu = occupancy.ToString();
-            var result = db.Houses
-                .Where(
-                x =>
-                (x.Title.Contains(title))
-                && (x.MaxOccupancy.ToString().Contains(occu))
-                )
-                .ToList();
+            if (!string.IsNullOrEmpty(title))
+            {
+                query = query.Where(x => x.Title.Contains(title));
+            }
+            if(occupancy>0)
+            {
+                query = query.Where(x => x.MaxOccupancy==occupancy);
+            }
+            ViewBag.Location = new SelectList(db.Locations, "LocationId", "LocationName");
+            
 
-            return View(result);
+            return View(query.ToList());
         }
 
         public ActionResult About()

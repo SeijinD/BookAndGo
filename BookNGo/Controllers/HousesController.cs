@@ -18,8 +18,8 @@ namespace BookNGo.Controllers
         // GET: Houses
         public ActionResult Index()
         {
-            
-            return View(db.Houses.ToList());
+            var test = db.Houses.Include( x => x.Location).ToList();
+            return View(test);
         }
 
         // GET: Houses/Details/5
@@ -53,6 +53,8 @@ namespace BookNGo.Controllers
         {
             if (ModelState.IsValid)
             {
+                var location = db.Locations.Where(x => x.LocationId == house.LocationId).FirstOrDefault();
+                house.Location = location;
                 db.Houses.Add(house);
                 db.SaveChanges();
                 
