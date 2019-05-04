@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookNGo.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BookNGo.Controllers
 {
@@ -17,12 +18,14 @@ namespace BookNGo.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var houseinclude = db.Houses.Include(x => x.Location).ToList();
+            return View(houseinclude);
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details()
         {
+            var id = User.Identity.GetUserId();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -35,32 +38,11 @@ namespace BookNGo.Controllers
             return View(applicationUser);
         }
 
-        // GET: Users/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Gender,DateOfBirth,CreatedAt,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(applicationUser);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(applicationUser);
-        }
-
         // GET: Users/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit()
         {
+            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
+            var id = User.Identity.GetUserId();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -78,7 +60,7 @@ namespace BookNGo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Gender,DateOfBirth,CreatedAt,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Gender,DateOfBirth,Email,PhoneNumber,UserName,LocationId")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
@@ -90,8 +72,9 @@ namespace BookNGo.Controllers
         }
 
         // GET: Users/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete()
         {
+            var id = User.Identity.GetUserId();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -107,8 +90,9 @@ namespace BookNGo.Controllers
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed()
         {
+            var id = User.Identity.GetUserId();
             ApplicationUser applicationUser = db.Users.Find(id);
             db.Users.Remove(applicationUser);
             db.SaveChanges();

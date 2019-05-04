@@ -187,9 +187,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905041258356_mig1.cs" />
-    <Compile Include="Migrations\201905041258356_mig1.Designer.cs">
-      <DependentUpon>201905041258356_mig1.cs</DependentUpon>
+    <Compile Include="Migrations\201905042250259_mig1.cs" />
+    <Compile Include="Migrations\201905042250259_mig1.Designer.cs">
+      <DependentUpon>201905042250259_mig1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905042256431_mig2.cs" />
+    <Compile Include="Migrations\201905042256431_mig2.Designer.cs">
+      <DependentUpon>201905042256431_mig2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -376,12 +380,10 @@
     <Content Include="Views\Availabilities\Edit.cshtml" />
     <Content Include="Views\Availabilities\Index.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
-    <Content Include="Views\Categories\Delete.cshtml" />
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Features\Create.cshtml" />
-    <Content Include="Views\Features\Delete.cshtml" />
     <Content Include="Views\Features\Details.cshtml" />
     <Content Include="Views\Features\Edit.cshtml" />
     <Content Include="Views\Features\Index.cshtml" />
@@ -393,7 +395,6 @@
     <Content Include="Views\Images\Edit.cshtml" />
     <Content Include="Views\Images\Index.cshtml" />
     <Content Include="Views\Locations\Create.cshtml" />
-    <Content Include="Views\Locations\Delete.cshtml" />
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Locations\Edit.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
@@ -448,8 +449,11 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905041258356_mig1.resx">
-      <DependentUpon>201905041258356_mig1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905042250259_mig1.resx">
+      <DependentUpon>201905042250259_mig1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905042256431_mig2.resx">
+      <DependentUpon>201905042256431_mig2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
