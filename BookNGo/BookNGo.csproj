@@ -187,21 +187,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905042324110_mig1.cs" />
-    <Compile Include="Migrations\201905042324110_mig1.Designer.cs">
-      <DependentUpon>201905042324110_mig1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905042333595_mig2.cs" />
-    <Compile Include="Migrations\201905042333595_mig2.Designer.cs">
-      <DependentUpon>201905042333595_mig2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905050004316_mig3.cs" />
-    <Compile Include="Migrations\201905050004316_mig3.Designer.cs">
-      <DependentUpon>201905050004316_mig3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905050005473_mig31.cs" />
-    <Compile Include="Migrations\201905050005473_mig31.Designer.cs">
-      <DependentUpon>201905050005473_mig31.cs</DependentUpon>
+    <Compile Include="Migrations\201905050633101_mig1.cs" />
+    <Compile Include="Migrations\201905050633101_mig1.Designer.cs">
+      <DependentUpon>201905050633101_mig1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -438,7 +426,6 @@
     <Content Include="Views\Reservations\BookIt.cshtml" />
     <Content Include="Views\Reservations\Delete.cshtml" />
     <Content Include="Views\Reservations\Details.cshtml" />
-    <Content Include="Views\Reservations\Edit.cshtml" />
     <Content Include="Views\Reservations\Index.cshtml" />
     <Content Include="Views\Houses\MyHouses.cshtml" />
   </ItemGroup>
@@ -458,17 +445,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905042324110_mig1.resx">
-      <DependentUpon>201905042324110_mig1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905042333595_mig2.resx">
-      <DependentUpon>201905042333595_mig2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905050004316_mig3.resx">
-      <DependentUpon>201905050004316_mig3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905050005473_mig31.resx">
-      <DependentUpon>201905050005473_mig31.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905050633101_mig1.resx">
+      <DependentUpon>201905050633101_mig1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

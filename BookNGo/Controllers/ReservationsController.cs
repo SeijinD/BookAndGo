@@ -17,9 +17,9 @@ namespace BookNGo.Controllers
 
         // GET: Reservations/Book
         [Authorize]
-        public ActionResult BookIt()
+        public ActionResult BookIt(int houseId)
         {
-            //ViewBag.House = db.Houses.Find(houseId);
+            ViewBag.House = db.Houses.Find(houseId);
             return View();
         }
 
@@ -31,15 +31,19 @@ namespace BookNGo.Controllers
             if (ModelState.IsValid)
             {
                 ViewBag.House = TempData["House"];
-                reservation.HouseId = ViewBag.House.Id;
+                reservation.HouseId = ViewBag.House.HouseId;
                 reservation.ApplicationUserId = User.Identity.GetUserId();
                 reservation.DateOfBooking = DateTime.Today;
+                if (ViewBag.House.PricePerNight != null)
+                {
+                    reservation.PriceCharged = ViewBag.House.PricePerNight;
+                }
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.HouseId = new SelectList(db.Houses, "Id", "Title", ViewBag.House.Id);
+            ViewBag.HouseId = new SelectList(db.Houses, "Id", "Title" , "PricePerNight", ViewBag.House.Id);
             return View(reservation);
         }
 

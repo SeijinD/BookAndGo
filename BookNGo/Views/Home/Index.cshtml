@@ -11,8 +11,8 @@
     {
         <input type="text" name="title" placeholder="Enter House Title" />
         <input type="text" name="occupancy" placeholder="Enter Occupancy" />
-        @Html.DropDownList("Location", null, htmlAttributes: new { @class = "form-control" })
-        @Html.DropDownList("Category", null, htmlAttributes: new { @class = "form-control" })
+        @Html.DropDownList("Location", (SelectList)ViewBag.Location , "Please select", htmlAttributes: new { @class = "form-control" })
+        @Html.DropDownList("Category", (SelectList)ViewBag.Category, "Please select", htmlAttributes: new { @class = "form-control" })
         <input type="submit" name="submit" value="Search" />
     }
 </p>
@@ -68,6 +68,7 @@
             @Html.DisplayFor(modelItem => item.Location.LocationName)
         </td>
         <td>
+            @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = item.HouseId }, null);
             @Html.ActionLink("Details", "Details", new { id = item.HouseId })
         </td>
     </tr>

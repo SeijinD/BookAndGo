@@ -6,9 +6,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Book It New", "BookIt")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -65,7 +62,6 @@
             @Html.DisplayFor(modelItem => item.ApplicationUserId)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ReservationId }) |
             @Html.ActionLink("Details", "Details", new { id=item.ReservationId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ReservationId })
         </td>
