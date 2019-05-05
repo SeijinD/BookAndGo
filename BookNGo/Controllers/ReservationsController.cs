@@ -15,6 +15,15 @@ namespace BookNGo.Controllers
     {
         private BookNGoContext db = new BookNGoContext();
 
+        // GET: My Houses
+        public ActionResult MyReservations()
+        {
+            var currentUser = User.Identity.GetUserId();
+            var ccurrentUserReservations = db.Reservations.Where(i => i.ApplicationUserId == currentUser).ToList();
+            ccurrentUserReservations = db.Reservations.Include(x => x.House).ToList();
+            return View(ccurrentUserReservations);
+        }
+
         // GET: Reservations/Book
         [Authorize]
         public ActionResult BookIt(int houseId)
