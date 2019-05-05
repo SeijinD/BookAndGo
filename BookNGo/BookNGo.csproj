@@ -429,6 +429,7 @@
     <Content Include="Views\Reservations\Index.cshtml" />
     <Content Include="Views\Houses\MyHouses.cshtml" />
     <Content Include="Views\Reservations\MyReservations.cshtml" />
+    <Content Include="Views\Home\AdminPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

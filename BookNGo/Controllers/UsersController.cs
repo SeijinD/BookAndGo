@@ -68,6 +68,7 @@ namespace BookNGo.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            
             return View(applicationUser);
         }
 

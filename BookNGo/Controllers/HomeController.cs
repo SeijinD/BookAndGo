@@ -65,6 +65,12 @@ namespace BookNGo.Controllers
 
             return View();
         }
-        
+
+        public ActionResult AdminPage()
+        {
+           
+            return View();
+        }
+
     }
 }
