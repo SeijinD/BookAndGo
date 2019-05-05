@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookNGo.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BookNGo.Controllers
 {
@@ -14,10 +15,39 @@ namespace BookNGo.Controllers
     {
         private BookNGoContext db = new BookNGoContext();
 
+        // GET: Reservations/Book
+        [Authorize]
+        public ActionResult BookIt()
+        {
+            //ViewBag.House = db.Houses.Find(houseId);
+            return View();
+        }
+
+        // POST: Reservations/BookIt
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BookIt([Bind(Include = "ReservationId,StartDate,EndDate,NumberOfOccupants,DateOfBooking,PriceCharged,ApplicationUserId,HouseId")] Reservation reservation)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.House = TempData["House"];
+                reservation.HouseId = ViewBag.House.Id;
+                reservation.ApplicationUserId = User.Identity.GetUserId();
+                reservation.DateOfBooking = DateTime.Today;
+                db.Reservations.Add(reservation);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.HouseId = new SelectList(db.Houses, "Id", "Title", ViewBag.House.Id);
+            return View(reservation);
+        }
+
         // GET: Reservations
         public ActionResult Index()
         {
-            return View(db.Reservations.ToList());
+            var reservations = db.Reservations.Include(r => r.House);
+            return View(reservations.ToList());
         }
 
         // GET: Reservations/Details/5
@@ -35,29 +65,6 @@ namespace BookNGo.Controllers
             return View(reservation);
         }
 
-        // GET: Reservations/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Reservations/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ReservationId,StartDate,EndDate,NumberOfOccupants,DateOfBooking,Comments,PriceCharged")] Reservation reservation)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Reservations.Add(reservation);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(reservation);
-        }
-
         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -70,6 +77,7 @@ namespace BookNGo.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.HouseId = new SelectList(db.Houses, "HouseId", "Title", reservation.HouseId);
             return View(reservation);
         }
 
@@ -78,7 +86,7 @@ namespace BookNGo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ReservationId,StartDate,EndDate,NumberOfOccupants,DateOfBooking,Comments,PriceCharged")] Reservation reservation)
+        public ActionResult Edit([Bind(Include = "ReservationId,StartDate,EndDate,NumberOfOccupants,DateOfBooking,Comments,PriceCharged,ApplicationUserId,HouseId")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +94,7 @@ namespace BookNGo.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.HouseId = new SelectList(db.Houses, "HouseId", "Title", reservation.HouseId);
             return View(reservation);
         }
 

@@ -13,7 +13,7 @@ namespace BookNGo.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201905042256431_mig2"; }
+            get { return "201905042333595_mig2"; }
         }
         
         string IMigrationMetadata.Source
