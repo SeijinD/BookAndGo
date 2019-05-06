@@ -18,20 +18,20 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: HouseSearch
-        public ActionResult Index(int location = 0, int category = 0, int occupancy = 0)
+        public ActionResult Index(DateTime? startDate, DateTime? endDate, int location = 0, int category = 0, int occupancy = 0)
         {
             ViewBag.Location = new SelectList(db.Locations, "LocationId", "LocationName");
             ViewBag.Category = new SelectList(db.Categories, "CategoryId", "CategoryName");
             //ViewBag.Availability = new SelectList(db.Availabilities, "HouseId", "StartDate", "EndDate");
 
-            //var Houses = db.Houses.ToList();
-            //var  Reservations = db.Reservations.ToList();
+            var Houses = db.Houses.ToList();
+            var Reservations = db.Reservations.ToList();
 
             var query = db.Houses.AsQueryable();
 
             if (location > 0)
             {
-                query = query.Where(x => x.Location.LocationId == location);
+                query = query.Where(x => x.Location.LocationId== location);
             }
             if (category > 0)
             {
@@ -41,24 +41,26 @@ namespace BookNGo.Controllers
             {
                 query = query.Where(x => x.MaxOccupancy == occupancy);
             }
-            
-            //if (startDate != null && endDate != null)
-            //{
-            //    foreach (var house in query.ToList())
-            //    {
-            //        var reservationsHouse = Reservations.Where(b => b.HouseId == house.HouseId);
 
-            //        foreach (var reservation in reservationsHouse)
-            //        {
-            //            if (startDate <= reservation.StartDate && endDate >= reservation.EndDate)
-            //            {
-            //                query.Remove(house);
-            //            }
-            //        }
-            //    }
-            //}
+            var query2 = query.ToList();
 
-            return View(query.ToList());
+            if (startDate != null && endDate != null)
+            {
+                foreach (var house in query2.ToList())
+                {
+                    var reservationsHouse = Reservations.Where(b => b.HouseId == house.HouseId);
+
+                    foreach (var reservation in reservationsHouse)
+                    {
+                        if (startDate <= reservation.StartDate && endDate >= reservation.EndDate)
+                        {
+                            query2.Remove(house);
+                        }
+                    }
+                }
+            }
+
+            return View(query2);
         }
 
         // GET: Houses/Details/5
