@@ -51,7 +51,7 @@ namespace BookNGo.Controllers
 
                     foreach (var reservation in reservationsHouse)
                     {
-                        if (startDate <= reservation.StartDate && endDate >= reservation.EndDate)
+                        if ((startDate <= reservation.StartDate && endDate >= reservation.EndDate) || (startDate <= reservation.StartDate && (endDate <= reservation.EndDate && endDate >= reservation.StartDate)) || (endDate >= reservation.EndDate && (startDate >= reservation.StartDate && startDate <= reservation.EndDate)))
                         {
                             query2.Remove(house);
                         }

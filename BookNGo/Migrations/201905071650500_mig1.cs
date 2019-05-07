@@ -8,41 +8,6 @@ namespace BookNGo.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Availabilities",
-                c => new
-                    {
-                        AvailabilityId = c.Int(nullable: false, identity: true),
-                        StartDate = c.DateTime(nullable: false),
-                        EndDate = c.DateTime(nullable: false),
-                        HouseId_HouseId = c.Int(),
-                    })
-                .PrimaryKey(t => t.AvailabilityId)
-                .ForeignKey("dbo.Houses", t => t.HouseId_HouseId)
-                .Index(t => t.HouseId_HouseId);
-            
-            CreateTable(
-                "dbo.Houses",
-                c => new
-                    {
-                        HouseId = c.Int(nullable: false, identity: true),
-                        Title = c.String(nullable: false, maxLength: 255),
-                        Description = c.String(nullable: false),
-                        Address = c.String(nullable: false),
-                        MaxOccupancy = c.Int(nullable: false),
-                        PricePerNight = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        LocationId = c.Int(nullable: false),
-                        CategoryId = c.Int(nullable: false),
-                        Owner_Id = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.HouseId)
-                .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)
-                .ForeignKey("dbo.Locations", t => t.LocationId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.Owner_Id)
-                .Index(t => t.LocationId)
-                .Index(t => t.CategoryId)
-                .Index(t => t.Owner_Id);
-            
-            CreateTable(
                 "dbo.Categories",
                 c => new
                     {
@@ -59,6 +24,28 @@ namespace BookNGo.Migrations
                         FeatureName = c.String(nullable: false, maxLength: 255),
                     })
                 .PrimaryKey(t => t.FeatureId);
+            
+            CreateTable(
+                "dbo.Houses",
+                c => new
+                    {
+                        HouseId = c.Int(nullable: false, identity: true),
+                        Title = c.String(nullable: false, maxLength: 255),
+                        Description = c.String(nullable: false),
+                        Address = c.String(nullable: false),
+                        MaxOccupancy = c.Int(nullable: false),
+                        PricePerNight = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        LocationId = c.Int(nullable: false),
+                        CategoryId = c.Int(nullable: false),
+                        OwnerId = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.HouseId)
+                .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)
+                .ForeignKey("dbo.Locations", t => t.LocationId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.OwnerId)
+                .Index(t => t.LocationId)
+                .Index(t => t.CategoryId)
+                .Index(t => t.OwnerId);
             
             CreateTable(
                 "dbo.Images",
@@ -178,38 +165,37 @@ namespace BookNGo.Migrations
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
             CreateTable(
-                "dbo.FeatureHouses",
+                "dbo.HouseFeatures",
                 c => new
                     {
-                        Feature_FeatureId = c.Int(nullable: false),
                         House_HouseId = c.Int(nullable: false),
+                        Feature_FeatureId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.Feature_FeatureId, t.House_HouseId })
-                .ForeignKey("dbo.Features", t => t.Feature_FeatureId, cascadeDelete: true)
+                .PrimaryKey(t => new { t.House_HouseId, t.Feature_FeatureId })
                 .ForeignKey("dbo.Houses", t => t.House_HouseId, cascadeDelete: true)
-                .Index(t => t.Feature_FeatureId)
-                .Index(t => t.House_HouseId);
+                .ForeignKey("dbo.Features", t => t.Feature_FeatureId, cascadeDelete: true)
+                .Index(t => t.House_HouseId)
+                .Index(t => t.Feature_FeatureId);
             
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Availabilities", "HouseId_HouseId", "dbo.Houses");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Reservations", "HouseId", "dbo.Houses");
             DropForeignKey("dbo.Reservations", "ApplicationUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUsers", "Location_LocationId", "dbo.Locations");
-            DropForeignKey("dbo.Houses", "Owner_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Houses", "OwnerId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Houses", "LocationId", "dbo.Locations");
             DropForeignKey("dbo.Images", "HouseID_HouseId", "dbo.Houses");
-            DropForeignKey("dbo.FeatureHouses", "House_HouseId", "dbo.Houses");
-            DropForeignKey("dbo.FeatureHouses", "Feature_FeatureId", "dbo.Features");
+            DropForeignKey("dbo.HouseFeatures", "Feature_FeatureId", "dbo.Features");
+            DropForeignKey("dbo.HouseFeatures", "House_HouseId", "dbo.Houses");
             DropForeignKey("dbo.Houses", "CategoryId", "dbo.Categories");
-            DropIndex("dbo.FeatureHouses", new[] { "House_HouseId" });
-            DropIndex("dbo.FeatureHouses", new[] { "Feature_FeatureId" });
+            DropIndex("dbo.HouseFeatures", new[] { "Feature_FeatureId" });
+            DropIndex("dbo.HouseFeatures", new[] { "House_HouseId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
@@ -220,11 +206,10 @@ namespace BookNGo.Migrations
             DropIndex("dbo.AspNetUsers", new[] { "Location_LocationId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Images", new[] { "HouseID_HouseId" });
-            DropIndex("dbo.Houses", new[] { "Owner_Id" });
+            DropIndex("dbo.Houses", new[] { "OwnerId" });
             DropIndex("dbo.Houses", new[] { "CategoryId" });
             DropIndex("dbo.Houses", new[] { "LocationId" });
-            DropIndex("dbo.Availabilities", new[] { "HouseId_HouseId" });
-            DropTable("dbo.FeatureHouses");
+            DropTable("dbo.HouseFeatures");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.Reservations");
@@ -233,10 +218,9 @@ namespace BookNGo.Migrations
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.Locations");
             DropTable("dbo.Images");
+            DropTable("dbo.Houses");
             DropTable("dbo.Features");
             DropTable("dbo.Categories");
-            DropTable("dbo.Houses");
-            DropTable("dbo.Availabilities");
         }
     }
 }

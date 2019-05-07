@@ -63,9 +63,12 @@
         </td>
         <td>
             @Html.ActionLink("Details", "Details", new { id=item.ReservationId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ReservationId })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReservationId }) 
         </td>
     </tr>
 }
 
 </table>
+<div>
+    @Html.ActionLink("Back", "AdminPage", "Home")
+</div>
