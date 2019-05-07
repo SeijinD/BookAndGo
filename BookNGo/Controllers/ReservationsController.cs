@@ -36,7 +36,7 @@ namespace BookNGo.Controllers
         // POST: Reservations/BookIt
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult BookIt([Bind(Include = "ReservationId,StartDate,EndDate,NumberOfOccupants,DateOfBooking,PriceCharged,ApplicationUserId,HouseId")] Reservation reservation)
+        public ActionResult BookIt([Bind(Include = "ReservationId,StartDate,EndDate,NumberOfOccupants,DateOfBooking,Comments,PriceCharged,ApplicationUserId,HouseId")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
