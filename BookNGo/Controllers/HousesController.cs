@@ -19,10 +19,11 @@ namespace BookNGo.Controllers
         public ActionResult MyHouses()
         {
             var currentUser = User.Identity.GetUserId();
-            var ccurrentUserHouses = db.Houses.Where(i => i.Owner.Id == currentUser).ToList();
-            ccurrentUserHouses = db.Houses.Include(x => x.Location).ToList();
-            ccurrentUserHouses = db.Houses.Include(x => x.Category).ToList();
-            return View(ccurrentUserHouses);
+            var currentUserHouses = db.Houses.Where(i => i.Owner.Id == currentUser)
+                                             .Include(x => x.Location)
+                                             .Include(c => c.Category)
+                                             .ToList();
+            return View(currentUserHouses);
         }
 
         // GET: Houses
@@ -66,7 +67,7 @@ namespace BookNGo.Controllers
         {
             if (ModelState.IsValid)
             {
-                house.Owner = db.Users.Find(User.Identity.GetUserId());
+                house.OwnerId = User.Identity.GetUserId();
                 var location = db.Locations.Where(x => x.LocationId == house.LocationId).FirstOrDefault();
                 house.Location = location;
                 var category = db.Categories.Where(x => x.CategoryId == house.CategoryId).FirstOrDefault();

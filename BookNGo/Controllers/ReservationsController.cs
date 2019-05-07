@@ -19,9 +19,10 @@ namespace BookNGo.Controllers
         public ActionResult MyReservations()
         {
             var currentUser = User.Identity.GetUserId();
-            var ccurrentUserReservations = db.Reservations.Where(i => i.ApplicationUserId == currentUser).ToList();
-            ccurrentUserReservations = db.Reservations.Include(x => x.House).ToList();
-            return View(ccurrentUserReservations);
+            var currentUserReservations = db.Reservations.Where(i => i.ApplicationUserId == currentUser)
+                                             .Include(x => x.House)
+                                             .ToList();
+            return View(currentUserReservations);
         }
 
         // GET: Reservations/Book

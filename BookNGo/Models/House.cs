@@ -42,7 +42,9 @@ namespace BookNGo.Models
 
         public int CategoryId { get; set; }
 
-        public ApplicationUser Owner { get; set; } //one house = one owner(1-1)
+        public ApplicationUser Owner { get; set; } //one house = many owner(1-N)
+
+        public string OwnerId { get; set; }
 
         public virtual ICollection<Feature> Features { get; set; } //many House = many Feature(n-n)
     }
