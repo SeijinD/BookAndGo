@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookNGo.Models;
-using BookNGo.ViewModels;
 
 
 namespace BookNGo.Controllers
