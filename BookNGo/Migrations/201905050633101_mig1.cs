@@ -32,15 +32,15 @@ namespace BookNGo.Migrations
                         PricePerNight = c.Decimal(nullable: false, precision: 18, scale: 2),
                         LocationId = c.Int(nullable: false),
                         CategoryId = c.Int(nullable: false),
-                        ApplicationUser_Id = c.String(maxLength: 128),
+                        Owner_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.HouseId)
                 .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)
                 .ForeignKey("dbo.Locations", t => t.LocationId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.Owner_Id)
                 .Index(t => t.LocationId)
                 .Index(t => t.CategoryId)
-                .Index(t => t.ApplicationUser_Id);
+                .Index(t => t.Owner_Id);
             
             CreateTable(
                 "dbo.Categories",
@@ -82,26 +82,6 @@ namespace BookNGo.Migrations
                 .PrimaryKey(t => t.LocationId);
             
             CreateTable(
-                "dbo.Reservations",
-                c => new
-                    {
-                        ReservationId = c.Int(nullable: false, identity: true),
-                        StartDate = c.DateTime(nullable: false),
-                        EndDate = c.DateTime(nullable: false),
-                        NumberOfOccupants = c.Int(nullable: false),
-                        DateOfBooking = c.DateTime(nullable: false),
-                        Comments = c.String(),
-                        PriceCharged = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        ApplicationUser_Id = c.String(maxLength: 128),
-                        House_HouseId = c.Int(),
-                    })
-                .PrimaryKey(t => t.ReservationId)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .ForeignKey("dbo.Houses", t => t.House_HouseId)
-                .Index(t => t.ApplicationUser_Id)
-                .Index(t => t.House_HouseId);
-            
-            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
@@ -110,7 +90,6 @@ namespace BookNGo.Migrations
                         LastName = c.String(nullable: false, maxLength: 255),
                         Gender = c.String(maxLength: 255),
                         DateOfBirth = c.DateTime(nullable: false),
-                        LocationId = c.Int(nullable: false),
                         CreatedAt = c.DateTime(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
@@ -123,11 +102,12 @@ namespace BookNGo.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256),
+                        Location_LocationId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Locations", t => t.LocationId, cascadeDelete: true)
-                .Index(t => t.LocationId)
-                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
+                .ForeignKey("dbo.Locations", t => t.Location_LocationId)
+                .Index(t => t.UserName, unique: true, name: "UserNameIndex")
+                .Index(t => t.Location_LocationId);
             
             CreateTable(
                 "dbo.AspNetUserClaims",
@@ -153,6 +133,26 @@ namespace BookNGo.Migrations
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.Reservations",
+                c => new
+                    {
+                        ReservationId = c.Int(nullable: false, identity: true),
+                        StartDate = c.DateTime(nullable: false),
+                        EndDate = c.DateTime(nullable: false),
+                        NumberOfOccupants = c.Int(nullable: false),
+                        DateOfBooking = c.DateTime(nullable: false),
+                        Comments = c.String(),
+                        PriceCharged = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        ApplicationUserId = c.String(maxLength: 128),
+                        HouseId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ReservationId)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
+                .ForeignKey("dbo.Houses", t => t.HouseId, cascadeDelete: true)
+                .Index(t => t.ApplicationUserId)
+                .Index(t => t.HouseId);
             
             CreateTable(
                 "dbo.AspNetUserRoles",
@@ -195,14 +195,14 @@ namespace BookNGo.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Reservations", "House_HouseId", "dbo.Houses");
-            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Reservations", "ApplicationUser_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUsers", "LocationId", "dbo.Locations");
-            DropForeignKey("dbo.Houses", "ApplicationUser_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Availabilities", "HouseId_HouseId", "dbo.Houses");
+            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Reservations", "HouseId", "dbo.Houses");
+            DropForeignKey("dbo.Reservations", "ApplicationUserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUsers", "Location_LocationId", "dbo.Locations");
+            DropForeignKey("dbo.Houses", "Owner_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Houses", "LocationId", "dbo.Locations");
             DropForeignKey("dbo.Images", "HouseID_HouseId", "dbo.Houses");
             DropForeignKey("dbo.FeatureHouses", "House_HouseId", "dbo.Houses");
@@ -213,24 +213,24 @@ namespace BookNGo.Migrations
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.Reservations", new[] { "HouseId" });
+            DropIndex("dbo.Reservations", new[] { "ApplicationUserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.AspNetUsers", new[] { "Location_LocationId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.AspNetUsers", new[] { "LocationId" });
-            DropIndex("dbo.Reservations", new[] { "House_HouseId" });
-            DropIndex("dbo.Reservations", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.Images", new[] { "HouseID_HouseId" });
-            DropIndex("dbo.Houses", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.Houses", new[] { "Owner_Id" });
             DropIndex("dbo.Houses", new[] { "CategoryId" });
             DropIndex("dbo.Houses", new[] { "LocationId" });
             DropIndex("dbo.Availabilities", new[] { "HouseId_HouseId" });
             DropTable("dbo.FeatureHouses");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.Reservations");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.Reservations");
             DropTable("dbo.Locations");
             DropTable("dbo.Images");
             DropTable("dbo.Features");

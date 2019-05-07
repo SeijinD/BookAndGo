@@ -26,6 +26,7 @@ namespace BookNGo.Models
 
         [Display(Name = "Date Of Booking")]
         [Required(ErrorMessage = "Date of booking Required")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBooking { get; set; }
 
         public string Comments { get; set; }
@@ -36,7 +37,10 @@ namespace BookNGo.Models
 
         public ApplicationUser ApplicationUser { get; set; } //πολλα Reservation ανηκουν σε εναν χρηστη(1-n)
 
+        public string ApplicationUserId { get; set; }
+
         public House House { get; set; } //Πολλα Reservation ανηκουν σε ενα σπιτι (1-n)
 
+        public int HouseId { get; set; }
     }
 }

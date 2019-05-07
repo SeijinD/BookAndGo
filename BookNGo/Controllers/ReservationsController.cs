@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookNGo.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BookNGo.Controllers
 {
@@ -14,10 +15,52 @@ namespace BookNGo.Controllers
     {
         private BookNGoContext db = new BookNGoContext();
 
+        // GET: My Houses
+        public ActionResult MyReservations()
+        {
+            var currentUser = User.Identity.GetUserId();
+            var ccurrentUserReservations = db.Reservations.Where(i => i.ApplicationUserId == currentUser).ToList();
+            ccurrentUserReservations = db.Reservations.Include(x => x.House).ToList();
+            return View(ccurrentUserReservations);
+        }
+
+        // GET: Reservations/Book
+        [Authorize]
+        public ActionResult BookIt(int houseId)
+        {
+            ViewBag.House = db.Houses.Find(houseId);
+            return View();
+        }
+
+        // POST: Reservations/BookIt
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BookIt([Bind(Include = "ReservationId,StartDate,EndDate,NumberOfOccupants,DateOfBooking,PriceCharged,ApplicationUserId,HouseId")] Reservation reservation)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.House = TempData["House"];
+                reservation.HouseId = ViewBag.House.HouseId;
+                reservation.ApplicationUserId = User.Identity.GetUserId();
+                reservation.DateOfBooking = DateTime.Today;
+                if (ViewBag.House.PricePerNight != null)
+                {
+                    reservation.PriceCharged = ViewBag.House.PricePerNight;
+                }
+                db.Reservations.Add(reservation);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.HouseId = new SelectList(db.Houses, "Id", "Title" , "PricePerNight", ViewBag.House.Id);
+            return View(reservation);
+        }
+
         // GET: Reservations
         public ActionResult Index()
         {
-            return View(db.Reservations.ToList());
+            var reservations = db.Reservations.Include(r => r.House);
+            return View(reservations.ToList());
         }
 
         // GET: Reservations/Details/5
@@ -31,60 +74,6 @@ namespace BookNGo.Controllers
             if (reservation == null)
             {
                 return HttpNotFound();
-            }
-            return View(reservation);
-        }
-
-        // GET: Reservations/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Reservations/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ReservationId,StartDate,EndDate,NumberOfOccupants,DateOfBooking,Comments,PriceCharged")] Reservation reservation)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Reservations.Add(reservation);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(reservation);
-        }
-
-        // GET: Reservations/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Reservation reservation = db.Reservations.Find(id);
-            if (reservation == null)
-            {
-                return HttpNotFound();
-            }
-            return View(reservation);
-        }
-
-        // POST: Reservations/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ReservationId,StartDate,EndDate,NumberOfOccupants,DateOfBooking,Comments,PriceCharged")] Reservation reservation)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(reservation).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
             return View(reservation);
         }

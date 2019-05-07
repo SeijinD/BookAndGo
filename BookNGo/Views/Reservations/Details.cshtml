@@ -11,6 +11,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.House.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.House.Title)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.StartDate)
         </dt>
 
@@ -58,9 +66,16 @@
             @Html.DisplayFor(model => model.PriceCharged)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUserId)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ReservationId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -7,13 +7,23 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookNGo.Models;
-
+using Microsoft.AspNet.Identity;
 
 namespace BookNGo.Controllers
 {
     public class HousesController : Controller
     {
         private BookNGoContext db = new BookNGoContext();
+
+        // GET: My Houses
+        public ActionResult MyHouses()
+        {
+            var currentUser = User.Identity.GetUserId();
+            var ccurrentUserHouses = db.Houses.Where(i => i.Owner.Id == currentUser).ToList();
+            ccurrentUserHouses = db.Houses.Include(x => x.Location).ToList();
+            ccurrentUserHouses = db.Houses.Include(x => x.Category).ToList();
+            return View(ccurrentUserHouses);
+        }
 
         // GET: Houses
         public ActionResult Index()
@@ -52,10 +62,11 @@ namespace BookNGo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId")] House house)
+        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId,Qwner")] House house)
         {
             if (ModelState.IsValid)
             {
+                house.Owner = db.Users.Find(User.Identity.GetUserId());
                 var location = db.Locations.Where(x => x.LocationId == house.LocationId).FirstOrDefault();
                 house.Location = location;
                 var category = db.Categories.Where(x => x.CategoryId == house.CategoryId).FirstOrDefault();
@@ -92,10 +103,11 @@ namespace BookNGo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId")] House house)
+        public ActionResult Edit([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId,Qwner")] House house)
         {
             if (ModelState.IsValid)
             {
+                house.Owner = db.Users.Find(User.Identity.GetUserId());
                 var location = db.Locations.Where(x => x.LocationId == house.LocationId).FirstOrDefault();
                 house.Location = location;
                 var category = db.Categories.Where(x => x.CategoryId == house.CategoryId).FirstOrDefault();
