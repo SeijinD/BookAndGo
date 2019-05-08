@@ -40,20 +40,36 @@ namespace BookNGo.Controllers
         {
             if (ModelState.IsValid)
             {
+                foreach (Reservation item in db.Reservations.Where(x => x.HouseId == reservation.HouseId))
+                { 
+                    if (item.StartDate < DateTime.Now || item.EndDate < DateTime.Now)
+                    {
+                        
+                    }
+                    else if (item.EndDate < item.StartDate)
+                    {
+
+                    }
+                    else if ((item.StartDate <= reservation.StartDate && item.EndDate >= reservation.EndDate) || (item.StartDate <= reservation.StartDate && (item.EndDate <= reservation.EndDate && item.EndDate >= reservation.StartDate)) || (item.EndDate >= reservation.EndDate && (item.StartDate >= reservation.StartDate && item.StartDate <= reservation.EndDate)))
+                    {
+                        
+                    }
+                }
                 ViewBag.House = TempData["House"];
                 reservation.HouseId = ViewBag.House.HouseId;
                 reservation.ApplicationUserId = User.Identity.GetUserId();
                 reservation.DateOfBooking = DateTime.Today;
+                reservation.NumberOfOccupants = ViewBag.House.MaxOccupancy;
                 if (ViewBag.House.PricePerNight != null)
                 {
                     reservation.PriceCharged = ViewBag.House.PricePerNight;
                 }
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyReservations","Reservations","");
             }
 
-            ViewBag.HouseId = new SelectList(db.Houses, "Id", "Title" , "PricePerNight", ViewBag.House.Id);
+            ViewBag.HouseId = new SelectList(db.Houses, "Id", "Title" , "PricePerNight", "MaxOccupancy" , ViewBag.House.Id);
             return View(reservation);
         }
 

@@ -43,6 +43,15 @@ namespace BookNGo.Controllers
 
             var query2 = query.ToList();
 
+            if(startDate < DateTime.Now || endDate < DateTime.Now)
+            {
+
+            }
+            else if (endDate < startDate)
+            {
+
+            }
+
             if (startDate != null && endDate != null)
             {
                 foreach (var house in query2.ToList())
@@ -51,6 +60,7 @@ namespace BookNGo.Controllers
 
                     foreach (var reservation in reservationsHouse)
                     {
+
                         if ((startDate <= reservation.StartDate && endDate >= reservation.EndDate) || (startDate <= reservation.StartDate && (endDate <= reservation.EndDate && endDate >= reservation.StartDate)) || (endDate >= reservation.EndDate && (startDate >= reservation.StartDate && startDate <= reservation.EndDate)))
                         {
                             query2.Remove(house);
