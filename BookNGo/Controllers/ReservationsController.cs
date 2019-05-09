@@ -38,23 +38,28 @@ namespace BookNGo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult BookIt([Bind(Include = "ReservationId,StartDate,EndDate,NumberOfOccupants,DateOfBooking,Comments,PriceCharged,ApplicationUserId,HouseId")] Reservation reservation)
         {
+            if (ViewBag.HouseId != null)
+            {
+                ViewBag.HouseId = new SelectList(db.Houses, "Id", "Title", "PricePerNight", "MaxOccupancy", ViewBag.House.Id);
+            }
+
+            foreach (Reservation item in db.Reservations.Where(x => x.HouseId == reservation.HouseId))
+            {
+                if (item.StartDate < DateTime.Now || item.EndDate < DateTime.Now)
+                {
+                    ModelState.AddModelError("startDate", "StartDate or EndDate is before now.");
+                }
+                else if (item.EndDate < item.StartDate)
+                {
+                    ModelState.AddModelError("endDate", "EndDate is before StartDate.");
+                }
+                else if ((item.StartDate <= reservation.StartDate && item.EndDate >= reservation.EndDate) || (item.StartDate <= reservation.StartDate && (item.EndDate <= reservation.EndDate && item.EndDate >= reservation.StartDate)) || (item.EndDate >= reservation.EndDate && (item.StartDate >= reservation.StartDate && item.StartDate <= reservation.EndDate)) || (item.StartDate >= reservation.StartDate && item.EndDate <= reservation.EndDate))
+                {
+                    ModelState.AddModelError("endDate", "Date is not availability.");
+                }
+            }
             if (ModelState.IsValid)
             {
-                foreach (Reservation item in db.Reservations.Where(x => x.HouseId == reservation.HouseId))
-                { 
-                    if (item.StartDate < DateTime.Now || item.EndDate < DateTime.Now)
-                    {
-                        
-                    }
-                    else if (item.EndDate < item.StartDate)
-                    {
-
-                    }
-                    else if ((item.StartDate <= reservation.StartDate && item.EndDate >= reservation.EndDate) || (item.StartDate <= reservation.StartDate && (item.EndDate <= reservation.EndDate && item.EndDate >= reservation.StartDate)) || (item.EndDate >= reservation.EndDate && (item.StartDate >= reservation.StartDate && item.StartDate <= reservation.EndDate)))
-                    {
-                        
-                    }
-                }
                 ViewBag.House = TempData["House"];
                 reservation.HouseId = ViewBag.House.HouseId;
                 reservation.ApplicationUserId = User.Identity.GetUserId();
@@ -66,10 +71,9 @@ namespace BookNGo.Controllers
                 }
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
-                return RedirectToAction("MyReservations","Reservations","");
-            }
 
-            ViewBag.HouseId = new SelectList(db.Houses, "Id", "Title" , "PricePerNight", "MaxOccupancy" , ViewBag.House.Id);
+                return RedirectToAction("MyReservations", "Reservations", "");
+            }
             return View(reservation);
         }
 

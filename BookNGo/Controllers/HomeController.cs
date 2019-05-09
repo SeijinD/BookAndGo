@@ -21,16 +21,18 @@ namespace BookNGo.Controllers
         {
             ViewBag.Location = new SelectList(db.Locations, "LocationId", "LocationName");
             ViewBag.Category = new SelectList(db.Categories, "CategoryId", "CategoryName");
-            //ViewBag.Availability = new SelectList(db.Availabilities, "HouseId", "StartDate", "EndDate");
 
             var Houses = db.Houses.ToList();
             var Reservations = db.Reservations.ToList();
 
             var query = db.Houses.AsQueryable();
 
+            var queryEmpty = query;
+            queryEmpty = query.Where(x => x.HouseId == 0);
+
             if (location > 0)
             {
-                query = query.Where(x => x.Location.LocationId== location);
+                query = query.Where(x => x.Location.LocationId == location);
             }
             if (category > 0)
             {
@@ -43,33 +45,36 @@ namespace BookNGo.Controllers
 
             var query2 = query.ToList();
 
-            if(startDate < DateTime.Now || endDate < DateTime.Now)
+            if (startDate < DateTime.Now || endDate < DateTime.Now)
             {
-
+                ModelState.AddModelError("startDate", "StartDate or EndDate is before now.");
             }
             else if (endDate < startDate)
             {
-
+                ModelState.AddModelError("endDate", "EndDate is before StartDate.");
             }
-
-            if (startDate != null && endDate != null)
+            if (ModelState.IsValid)
             {
-                foreach (var house in query2.ToList())
+                if (startDate != null && endDate != null)
                 {
-                    var reservationsHouse = Reservations.Where(b => b.HouseId == house.HouseId);
-
-                    foreach (var reservation in reservationsHouse)
+                    foreach (var house in query2.ToList())
                     {
+                        var reservationsHouse = Reservations.Where(b => b.HouseId == house.HouseId);
 
-                        if ((startDate <= reservation.StartDate && endDate >= reservation.EndDate) || (startDate <= reservation.StartDate && (endDate <= reservation.EndDate && endDate >= reservation.StartDate)) || (endDate >= reservation.EndDate && (startDate >= reservation.StartDate && startDate <= reservation.EndDate)))
+                        foreach (var reservation in reservationsHouse)
                         {
-                            query2.Remove(house);
+
+                            if ((startDate <= reservation.StartDate && endDate >= reservation.EndDate) || (startDate <= reservation.StartDate && (endDate <= reservation.EndDate && endDate >= reservation.StartDate)) || (endDate >= reservation.EndDate && (startDate >= reservation.StartDate && startDate <= reservation.EndDate)) || (startDate >= reservation.StartDate && endDate <= reservation.EndDate))
+                            {
+                                query2.Remove(house);
+                            }
                         }
                     }
                 }
-            }
 
-            return View(query2);
+                return View(query2);
+            }
+            return View(queryEmpty);
         }
 
         // GET: Houses/Details/5
@@ -97,7 +102,7 @@ namespace BookNGo.Controllers
 
         public ActionResult AdminPage()
         {
-           
+
             return View();
         }
 

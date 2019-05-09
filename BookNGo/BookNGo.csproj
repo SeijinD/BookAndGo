@@ -93,12 +93,12 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -185,13 +185,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905071650500_mig1.cs" />
-    <Compile Include="Migrations\201905071650500_mig1.Designer.cs">
-      <DependentUpon>201905071650500_mig1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905081359158_mig11.cs" />
-    <Compile Include="Migrations\201905081359158_mig11.Designer.cs">
-      <DependentUpon>201905081359158_mig11.cs</DependentUpon>
+    <Compile Include="Migrations\201905091324571_mig1.cs" />
+    <Compile Include="Migrations\201905091324571_mig1.Designer.cs">
+      <DependentUpon>201905091324571_mig1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -296,7 +292,6 @@
     <Content Include="Views\Features\Edit.cshtml" />
     <Content Include="Views\Features\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Locations\Create.cshtml" />
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Locations\Edit.cshtml" />
@@ -337,6 +332,7 @@
     <Content Include="Views\Houses\MyHouses.cshtml" />
     <Content Include="Views\Reservations\MyReservations.cshtml" />
     <Content Include="Views\Home\AdminPage.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -354,11 +350,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905071650500_mig1.resx">
-      <DependentUpon>201905071650500_mig1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905081359158_mig11.resx">
-      <DependentUpon>201905081359158_mig11.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905091324571_mig1.resx">
+      <DependentUpon>201905091324571_mig1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
