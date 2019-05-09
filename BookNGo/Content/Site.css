@@ -1,6 +1,13 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    color: black;
+    /* Fonts */
+    font-family: 'Roboto', 'Open Sans', 'Lato', sans-serif;
+    /* Code for the Gradient */
+    background: #43C6AC; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #F8FFAE, #43C6AC); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #F8FFAE, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +28,59 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+/* Responsive menu button */
+button.navbar-toggle {
+    /* Code for the gradient */
+    background: #525252; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3d72b4, #525252); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3d72b4, #525252); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+span.icon-bar {
+    /* Code for the gradient */
+    background: #8e9eab; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #eef2f3, #8e9eab); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #eef2f3, #8e9eab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.navbar {
+    border-width: 0px !important;
+    border-top: 2px solid rgb(63,94,251) !important;
+    border-bottom: 2px solid rgb(63,94,251) !important;
+    /* opacity: 0.5; */
+    /* Code for the Gradient */
+    background: #A1FFCE; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FAFFD1, #A1FFCE); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FAFFD1, #A1FFCE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.navbar-brand > img {
+    width: 100px;
+    height: 60px;
+    padding-bottom: 10px;
+}
+
+a.navbar-brand {
+    margin: 0; 
+    padding: 0;
+}
+
+.nav > li {
+    margin: 0;
+    padding: 0;
+}
+
+.nav > li > a {
+    color: black;
+}
+
+.nav > li > a:hover {
+    color: cadetblue;
+    font-weight: bold;
+}
+
+hr {
+    border: 1px solid #093028;
 }

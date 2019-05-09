@@ -178,7 +178,6 @@
     <Compile Include="Controllers\FeaturesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HousesController.cs" />
-    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
@@ -190,6 +189,10 @@
     <Compile Include="Migrations\201905071650500_mig1.Designer.cs">
       <DependentUpon>201905071650500_mig1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905081359158_mig11.cs" />
+    <Compile Include="Migrations\201905081359158_mig11.Designer.cs">
+      <DependentUpon>201905081359158_mig11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BookNGoContext.cs" />
@@ -197,7 +200,6 @@
     <Compile Include="Models\Feature.cs" />
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Reservation.cs" />
@@ -262,6 +264,7 @@
     <Content Include="Image\house2.jpeg" />
     <Content Include="Image\house3.jpeg" />
     <Content Include="Image\house4.jpeg" />
+    <Content Include="Image\Logo.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -378,11 +381,6 @@
     <Content Include="Views\Features\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Images\Create.cshtml" />
-    <Content Include="Views\Images\Delete.cshtml" />
-    <Content Include="Views\Images\Details.cshtml" />
-    <Content Include="Views\Images\Edit.cshtml" />
-    <Content Include="Views\Images\Index.cshtml" />
     <Content Include="Views\Locations\Create.cshtml" />
     <Content Include="Views\Locations\Details.cshtml" />
     <Content Include="Views\Locations\Edit.cshtml" />
@@ -442,6 +440,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905071650500_mig1.resx">
       <DependentUpon>201905071650500_mig1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905081359158_mig11.resx">
+      <DependentUpon>201905081359158_mig11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

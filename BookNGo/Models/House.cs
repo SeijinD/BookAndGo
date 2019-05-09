@@ -32,7 +32,9 @@ namespace BookNGo.Models
         [Required(ErrorMessage = "Price Required")]
         public Decimal PricePerNight { get; set; }
 
-        public ICollection<Image> Images { get; set; } //one House = many Image(1-n)
+        [Required(ErrorMessage = "ImageUrl Required")]
+        [DataType(DataType.ImageUrl)]
+        public string ImageUrl { get; set; }
 
         public Category Category { get; set; } //one Category = many House(1-n)
 

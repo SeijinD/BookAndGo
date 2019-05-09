@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -63,10 +64,18 @@ namespace BookNGo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId,Qwner")] House house)
+        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId,Qwner,ImageUrl")] House house)
         {
+            
+            
             if (ModelState.IsValid)
             {
+                string fileName = house.ImageUrl;
+                var uploadDir = "~/Image/";
+                var imagePath = Path.Combine(Server.MapPath(uploadDir), fileName);
+                var imageUrl = Path.Combine(uploadDir, fileName);
+                house.ImageUrl = imageUrl;
+
                 house.OwnerId = User.Identity.GetUserId();
                 var location = db.Locations.Where(x => x.LocationId == house.LocationId).FirstOrDefault();
                 house.Location = location;
@@ -74,9 +83,8 @@ namespace BookNGo.Controllers
                 house.Category = category;
                 db.Houses.Add(house);
                 db.SaveChanges();
-                
-                
-                return RedirectToAction("Index");
+
+                return RedirectToAction("MyHouses","Houses");
             }
             
             return View(house);
