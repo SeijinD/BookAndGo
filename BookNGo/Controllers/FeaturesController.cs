@@ -15,12 +15,14 @@ namespace Yovo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: Features
+        //[Authorize(Role="Admin")]
         public ActionResult Index()
         {
             return View(db.Features.ToList());
         }
 
         // GET: Features/Details/5
+        //[Authorize(Role="Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace Yovo.Controllers
         }
 
         // GET: Features/Create
+        //[Authorize(Role="Admin")]
         public ActionResult Create()
         {
             return View();
@@ -59,6 +62,7 @@ namespace Yovo.Controllers
         }
 
         // GET: Features/Edit/5
+        //[Authorize(Role="Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +94,7 @@ namespace Yovo.Controllers
         }
 
         // GET: Features/Delete/5
+        //[Authorize(Role="Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

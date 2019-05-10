@@ -68,6 +68,9 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = Model.HouseId }, null) |
+    @if (true)
+    {
+        @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = Model.HouseId }, null)
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>

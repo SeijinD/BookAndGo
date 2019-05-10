@@ -19,6 +19,7 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: My Houses
+        //[Authorize(Role="Owner")]
         public ActionResult MyHouses()
         {
             var currentUser = User.Identity.GetUserId();
@@ -30,6 +31,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses
+        //[Authorize(Role="Admin")]
         public ActionResult Index()
         {
             var houseinclude = db.Houses.Include( x => x.Location).ToList();
@@ -38,6 +40,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -56,15 +59,15 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses/Create
+        //[Authorize]
         public ActionResult Create()
         {
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
             //var house = new House();
             //var AllFeatures = from t in db.Features
-            //              select t;
-            //HouseModel viewModel = new HouseModel(house, 
-            //    AllFeatures.ToList());
+            //                  select t;
+            //HouseModel viewModel = new HouseModel(house, AllFeatures.ToList());
 
             //return View(viewModel);
             return View();
@@ -75,7 +78,7 @@ namespace BookNGo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId,Qwner,ImageUrl")] House house /*, HouseModel houseModel*/)
+        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId,Qwner,ImageUrl")] House house/*, HouseModel houseModel*/)
         { 
 
             if (ModelState.IsValid)
@@ -116,6 +119,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses/Edit/5
+        //[Authorize(Role="Owner")]
         public ActionResult Edit(int? id)
         {
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
@@ -154,6 +158,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses/Delete/5
+        //[Authorize(Role="Owner")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

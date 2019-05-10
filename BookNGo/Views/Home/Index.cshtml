@@ -90,7 +90,10 @@
                 @Html.DisplayFor(modelItem => item.Location.LocationName)
             </td>
             <td>
-                @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = item.HouseId }, null) |
+                @if (true)
+                {
+                    @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = item.HouseId }, null)
+                }
                 @Html.ActionLink("Details", "Details", new { id = item.HouseId })
             </td>
         </tr>
