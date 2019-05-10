@@ -20,8 +20,8 @@ namespace BookNGo.Controllers
         {
             var currentUser = User.Identity.GetUserId();
             var currentUserReservations = db.Reservations.Where(i => i.ApplicationUserId == currentUser)
-                                             .Include(x => x.House)
-                                             .ToList();
+                                                         .Include(x => x.House)
+                                                         .ToList();
             return View(currentUserReservations);
         }
 
@@ -45,15 +45,19 @@ namespace BookNGo.Controllers
 
             foreach (Reservation item in db.Reservations.Where(x => x.HouseId == reservation.HouseId))
             {
-                if (item.StartDate < DateTime.Now || item.EndDate < DateTime.Now)
+
+                if (reservation.StartDate < DateTime.Now || reservation.EndDate < DateTime.Now)
                 {
                     ModelState.AddModelError("startDate", "StartDate or EndDate is before now.");
                 }
-                else if (item.EndDate < item.StartDate)
+                else if (reservation.EndDate < reservation.StartDate)
                 {
                     ModelState.AddModelError("endDate", "EndDate is before StartDate.");
                 }
-                else if ((item.StartDate <= reservation.StartDate && item.EndDate >= reservation.EndDate) || (item.StartDate <= reservation.StartDate && (item.EndDate <= reservation.EndDate && item.EndDate >= reservation.StartDate)) || (item.EndDate >= reservation.EndDate && (item.StartDate >= reservation.StartDate && item.StartDate <= reservation.EndDate)) || (item.StartDate >= reservation.StartDate && item.EndDate <= reservation.EndDate))
+                else if ((item.StartDate <= reservation.StartDate && item.EndDate >= reservation.EndDate) 
+                    || (item.StartDate <= reservation.StartDate && (item.EndDate <= reservation.EndDate && item.EndDate >= reservation.StartDate)) 
+                    || (item.EndDate >= reservation.EndDate && (item.StartDate >= reservation.StartDate && item.StartDate <= reservation.EndDate)) 
+                    || (item.StartDate >= reservation.StartDate && item.EndDate <= reservation.EndDate))
                 {
                     ModelState.AddModelError("endDate", "Date is not availability.");
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -35,6 +36,9 @@ namespace BookNGo.Models
         [Required(ErrorMessage = "ImageUrl Required")]
         [DataType(DataType.ImageUrl)]
         public string ImageUrl { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase ImageFile { get; set; }
 
         public Category Category { get; set; } //one Category = many House(1-n)
 
