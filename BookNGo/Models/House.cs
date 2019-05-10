@@ -52,6 +52,11 @@ namespace BookNGo.Models
 
         public string OwnerId { get; set; }
 
+        public House()
+        {
+            this.Features = new List<Feature>();
+        }
+
         public virtual ICollection<Feature> Features { get; set; } //many House = many Feature(n-n)
     }
 }

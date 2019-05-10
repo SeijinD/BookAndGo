@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BookNGo.Models;
 
-namespace BookNGo.Controllers
+namespace Yovo.Controllers
 {
     public class FeaturesController : Controller
     {
@@ -49,7 +49,7 @@ namespace BookNGo.Controllers
         public ActionResult Create([Bind(Include = "FeatureId,FeatureName")] Feature feature)
         {
             if (ModelState.IsValid)
-            {
+            {  
                 db.Features.Add(feature);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -87,6 +87,32 @@ namespace BookNGo.Controllers
                 return RedirectToAction("Index");
             }
             return View(feature);
+        }
+
+        // GET: Features/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Feature feature = db.Features.Find(id);
+            if (feature == null)
+            {
+                return HttpNotFound();
+            }
+            return View(feature);
+        }
+
+        // POST: Features/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Feature feature = db.Features.Find(id);
+            db.Features.Remove(feature);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

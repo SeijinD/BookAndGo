@@ -43,18 +43,18 @@ namespace BookNGo.Controllers
                 ViewBag.HouseId = new SelectList(db.Houses, "Id", "Title", "PricePerNight", "MaxOccupancy", ViewBag.House.Id);
             }
 
-            foreach (Reservation item in db.Reservations.Where(x => x.HouseId == reservation.HouseId))
+            if (reservation.StartDate < DateTime.Now || reservation.EndDate < DateTime.Now)
             {
+                ModelState.AddModelError("startDate", "StartDate or EndDate is before now.");
+            }
+            else if (reservation.EndDate < reservation.StartDate)
+            {
+                ModelState.AddModelError("endDate", "EndDate is before StartDate.");
+            }
 
-                if (reservation.StartDate < DateTime.Now || reservation.EndDate < DateTime.Now)
-                {
-                    ModelState.AddModelError("startDate", "StartDate or EndDate is before now.");
-                }
-                else if (reservation.EndDate < reservation.StartDate)
-                {
-                    ModelState.AddModelError("endDate", "EndDate is before StartDate.");
-                }
-                else if ((item.StartDate <= reservation.StartDate && item.EndDate >= reservation.EndDate) 
+            foreach (Reservation item in db.Reservations.Where(x => x.HouseId == reservation.HouseId))
+            {    
+                if ((item.StartDate <= reservation.StartDate && item.EndDate >= reservation.EndDate) 
                     || (item.StartDate <= reservation.StartDate && (item.EndDate <= reservation.EndDate && item.EndDate >= reservation.StartDate)) 
                     || (item.EndDate >= reservation.EndDate && (item.StartDate >= reservation.StartDate && item.StartDate <= reservation.EndDate)) 
                     || (item.StartDate >= reservation.StartDate && item.EndDate <= reservation.EndDate))

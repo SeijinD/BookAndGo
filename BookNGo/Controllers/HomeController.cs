@@ -83,16 +83,20 @@ namespace BookNGo.Controllers
         // GET: Houses/Details/5
         public ActionResult Details(int? id)
         {
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             House house = db.Houses.Find(id);
+            
             if (house == null)
             {
                 return HttpNotFound();
             }
+            
+            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
+
             return View(house);
         }
 
