@@ -66,8 +66,11 @@ namespace BookNGo.Controllers
         [Authorize]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Gender,PhoneNumber,LocationId")] ApplicationUser applicationUser)
         {
+
+
             if (ModelState.IsValid)
             {
+
                 db.Entry(applicationUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
