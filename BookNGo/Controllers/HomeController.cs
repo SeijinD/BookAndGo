@@ -17,6 +17,7 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: HouseSearch
+        [AllowAnonymous]
         public ActionResult Index(DateTime? startDate, DateTime? endDate, int location = 0, int category = 0, int occupancy = 0)
         {
             ViewBag.Location = new SelectList(db.Locations, "LocationId", "LocationName");
@@ -81,6 +82,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
 
@@ -96,6 +98,7 @@ namespace BookNGo.Controllers
             return View(house);
         }
 
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -103,6 +106,7 @@ namespace BookNGo.Controllers
             return View();
         }
 
+        //[Authorize(Roles = "Admin" )]
         public ActionResult AdminPage()
         {
 

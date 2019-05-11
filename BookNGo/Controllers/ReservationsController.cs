@@ -16,6 +16,7 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: My Houses
+        [Authorize]
         public ActionResult MyReservations()
         {
             var currentUser = User.Identity.GetUserId();
@@ -82,6 +83,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Reservations
+        //[Authorize(Roles = "Admin" )]
         public ActionResult Index()
         {
             var reservations = db.Reservations.Include(r => r.House);
@@ -89,6 +91,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Reservations/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -104,6 +107,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Reservations/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
