@@ -85,12 +85,18 @@ namespace BookNGo.Controllers
         [AllowAnonymous]
         public ActionResult Details(int? id)
         {
+            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             House house = db.Houses.Find(id);
+            var location = db.Locations.Where(x => x.LocationId == house.LocationId).FirstOrDefault();
+            house.Location = location;
+            var category = db.Categories.Where(x => x.CategoryId == house.CategoryId).FirstOrDefault();
+            house.Category = category;
             if (house == null)
             {
                 return HttpNotFound();
