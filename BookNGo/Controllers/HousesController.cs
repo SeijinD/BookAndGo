@@ -8,9 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookNGo.Models;
-using BookNGo.ViewModels;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace BookNGo.Controllers
 {
@@ -19,7 +17,6 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: My Houses
-        //[Authorize(Role="Owner")]
         public ActionResult MyHouses()
         {
             var currentUser = User.Identity.GetUserId();
@@ -31,7 +28,6 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses
-        //[Authorize(Role="Admin")]
         public ActionResult Index()
         {
             var houseinclude = db.Houses.Include( x => x.Location).ToList();
@@ -40,9 +36,9 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses/Details/5
-        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -52,24 +48,14 @@ namespace BookNGo.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
-            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
-
             return View(house);
         }
 
         // GET: Houses/Create
-        //[Authorize]
         public ActionResult Create()
         {
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "CategoryName");
-            //var house = new House();
-            //var AllFeatures = from t in db.Features
-            //                  select t;
-            //HouseModel viewModel = new HouseModel(house, AllFeatures.ToList());
-
-            //return View(viewModel);
             return View();
         }
 
@@ -78,25 +64,12 @@ namespace BookNGo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId,Qwner,ImageUrl")] House house/*, HouseModel houseModel*/)
-        { 
-
+        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId,Qwner")] House house)
+        {
+            
+            
             if (ModelState.IsValid)
             {
-                string fileName = house.ImageUrl;
-                var uploadDir = "~/Image/";
-                var imagePath = Path.Combine(Server.MapPath(uploadDir), fileName);
-                var imageUrl = Path.Combine(uploadDir, fileName);
-                house.ImageUrl = imageUrl;
-
-                //if (houseModel.SelectedFeatures != null)
-                //{
-                //    foreach (var FeatureId in houseModel.SelectedFeatures)
-                //    {
-                //        Feature feature = db.Features.Where(t => t.FeatureId == FeatureId).First();
-                //        house.Features.Add(feature);
-                //    }
-                //}
 
                 house.OwnerId = User.Identity.GetUserId();
                 var location = db.Locations.Where(x => x.LocationId == house.LocationId).FirstOrDefault();
@@ -106,12 +79,6 @@ namespace BookNGo.Controllers
                 db.Houses.Add(house);
                 db.SaveChanges();
 
-
-                //var changeRole = new AccountController();
-                //changeRole.BookNGoContext = BookNGoContext;
-                //changeRole.UserManager.RemoveFromRole(User.Identity.GetUserId(), "Renter");
-                //changeRole.UserManager.AddToRole(User.Identity.GetUserId(), "Owner");
-
                 return RedirectToAction("MyHouses","Houses");
             }
             
@@ -119,7 +86,6 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses/Edit/5
-        //[Authorize(Role="Owner")]
         public ActionResult Edit(int? id)
         {
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
@@ -145,7 +111,7 @@ namespace BookNGo.Controllers
         {
             if (ModelState.IsValid)
             {
-                house.Owner = db.Users.Find(User.Identity.GetUserId());
+                house.OwnerId = User.Identity.GetUserId();
                 var location = db.Locations.Where(x => x.LocationId == house.LocationId).FirstOrDefault();
                 house.Location = location;
                 var category = db.Categories.Where(x => x.CategoryId == house.CategoryId).FirstOrDefault();
@@ -158,7 +124,6 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses/Delete/5
-        //[Authorize(Role="Owner")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

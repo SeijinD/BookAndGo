@@ -16,7 +16,6 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: Users
-        //[Authorize(Role="Admin")]
         public ActionResult Index()
         {
             var houseinclude = db.Houses.Include(x => x.Location).ToList();
@@ -24,7 +23,6 @@ namespace BookNGo.Controllers
         }
 
         // GET: Users/Details/5
-        //[Authorize]
         public ActionResult Details()
         {
             var id = User.Identity.GetUserId();
@@ -41,7 +39,6 @@ namespace BookNGo.Controllers
         }
 
         // GET: Users/Edit/5
-        //[Authorize]
         public ActionResult Edit()
         {
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
@@ -76,7 +73,6 @@ namespace BookNGo.Controllers
         }
 
         // GET: Users/Delete/5
-        //[Authorize]
         public ActionResult Delete()
         {
             var id = User.Identity.GetUserId();

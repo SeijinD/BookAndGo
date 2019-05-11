@@ -8,21 +8,19 @@ using System.Web;
 using System.Web.Mvc;
 using BookNGo.Models;
 
-namespace Yovo.Controllers
+namespace BookNGo.Controllers
 {
     public class FeaturesController : Controller
     {
         private BookNGoContext db = new BookNGoContext();
 
         // GET: Features
-        //[Authorize(Role="Admin")]
         public ActionResult Index()
         {
             return View(db.Features.ToList());
         }
 
         // GET: Features/Details/5
-        //[Authorize(Role="Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -38,7 +36,6 @@ namespace Yovo.Controllers
         }
 
         // GET: Features/Create
-        //[Authorize(Role="Admin")]
         public ActionResult Create()
         {
             return View();
@@ -52,7 +49,7 @@ namespace Yovo.Controllers
         public ActionResult Create([Bind(Include = "FeatureId,FeatureName")] Feature feature)
         {
             if (ModelState.IsValid)
-            {  
+            {
                 db.Features.Add(feature);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -62,7 +59,6 @@ namespace Yovo.Controllers
         }
 
         // GET: Features/Edit/5
-        //[Authorize(Role="Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -91,33 +87,6 @@ namespace Yovo.Controllers
                 return RedirectToAction("Index");
             }
             return View(feature);
-        }
-
-        // GET: Features/Delete/5
-        //[Authorize(Role="Admin")]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Feature feature = db.Features.Find(id);
-            if (feature == null)
-            {
-                return HttpNotFound();
-            }
-            return View(feature);
-        }
-
-        // POST: Features/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Feature feature = db.Features.Find(id);
-            db.Features.Remove(feature);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

@@ -33,13 +33,6 @@ namespace BookNGo.Models
         [Required(ErrorMessage = "Price Required")]
         public Decimal PricePerNight { get; set; }
 
-        [Required(ErrorMessage = "ImageUrl Required")]
-        [DataType(DataType.ImageUrl)]
-        public string ImageUrl { get; set; }
-
-        [NotMapped]
-        public HttpPostedFileBase ImageFile { get; set; }
-
         public Category Category { get; set; } //one Category = many House(1-n)
 
         public Location Location { get; set; }//one Location = many House(1-n)
@@ -51,11 +44,6 @@ namespace BookNGo.Models
         public ApplicationUser Owner { get; set; } //one house = many owner(1-N)
 
         public string OwnerId { get; set; }
-
-        public House()
-        {
-            this.Features = new List<Feature>();
-        }
 
         public virtual ICollection<Feature> Features { get; set; } //many House = many Feature(n-n)
     }

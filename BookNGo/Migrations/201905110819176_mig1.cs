@@ -35,7 +35,6 @@ namespace BookNGo.Migrations
                         Address = c.String(nullable: false),
                         MaxOccupancy = c.Int(nullable: false),
                         PricePerNight = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        ImageUrl = c.String(nullable: false),
                         LocationId = c.Int(nullable: false),
                         CategoryId = c.Int(nullable: false),
                         OwnerId = c.String(maxLength: 128),

@@ -1,4 +1,4 @@
-﻿@model BookNGo.ViewModels.HouseModel
+﻿@model BookNGo.Models.House
 
 @{
     ViewBag.Title = "Delete";
@@ -12,57 +12,56 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.House.Title)
+            @Html.DisplayNameFor(model => model.Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.Title)
+            @Html.DisplayFor(model => model.Title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.House.Description)
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.Description)
+            @Html.DisplayFor(model => model.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.House.Address)
+            @Html.DisplayNameFor(model => model.Address)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.Address)
+            @Html.DisplayFor(model => model.Address)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.House.MaxOccupancy)
+            @Html.DisplayNameFor(model => model.MaxOccupancy)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.MaxOccupancy)
+            @Html.DisplayFor(model => model.MaxOccupancy)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.House.PricePerNight)
+            @Html.DisplayNameFor(model => model.PricePerNight)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.PricePerNight)
+            @Html.DisplayFor(model => model.PricePerNight)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.House.LocationId)
+            @Html.DisplayNameFor(model => model.LocationId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.LocationId)
+            @Html.DisplayFor(model => model.LocationId)
         </dd>
 
     </dl>
 
-    @using (Html.BeginForm())
-    {
+    @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

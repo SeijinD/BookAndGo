@@ -16,7 +16,6 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: My Houses
-        [Authorize]
         public ActionResult MyReservations()
         {
             var currentUser = User.Identity.GetUserId();
@@ -54,7 +53,7 @@ namespace BookNGo.Controllers
             }
 
             foreach (Reservation item in db.Reservations.Where(x => x.HouseId == reservation.HouseId))
-            {    
+            {   
                 if ((item.StartDate <= reservation.StartDate && item.EndDate >= reservation.EndDate) 
                     || (item.StartDate <= reservation.StartDate && (item.EndDate <= reservation.EndDate && item.EndDate >= reservation.StartDate)) 
                     || (item.EndDate >= reservation.EndDate && (item.StartDate >= reservation.StartDate && item.StartDate <= reservation.EndDate)) 
@@ -83,7 +82,6 @@ namespace BookNGo.Controllers
         }
 
         // GET: Reservations
-        //[Authorize(Role="Admin")]
         public ActionResult Index()
         {
             var reservations = db.Reservations.Include(r => r.House);
@@ -91,7 +89,6 @@ namespace BookNGo.Controllers
         }
 
         // GET: Reservations/Details/5
-        //[Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -107,7 +104,6 @@ namespace BookNGo.Controllers
         }
 
         // GET: Reservations/Delete/5
-        //[Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

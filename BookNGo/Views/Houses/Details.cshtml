@@ -1,4 +1,4 @@
-﻿@model BookNGo.ViewModels.HouseModel
+﻿@model BookNGo.Models.House
 
 @{
     ViewBag.Title = "Details";
@@ -11,63 +11,63 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.House.Title)
+            @Html.DisplayNameFor(model => model.Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.Title)
+            @Html.DisplayFor(model => model.Title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.House.Description)
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.Description)
+            @Html.DisplayFor(model => model.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.House.Address)
+            @Html.DisplayNameFor(model => model.Address)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.Address)
+            @Html.DisplayFor(model => model.Address)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.House.MaxOccupancy)
+            @Html.DisplayNameFor(model => model.MaxOccupancy)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.MaxOccupancy)
+            @Html.DisplayFor(model => model.MaxOccupancy)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.House.PricePerNight)
+            @Html.DisplayNameFor(model => model.PricePerNight)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.PricePerNight)
+            @Html.DisplayFor(model => model.PricePerNight)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.House.Category)
+            @Html.DisplayNameFor(model => model.Category)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.Category.CategoryName)
+            @Html.DisplayFor(model => model.Category.CategoryName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.House.Location)
+            @Html.DisplayNameFor(model => model.Location)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.House.Location.LocationName)
+            @Html.DisplayFor(model => model.Location.LocationName)
         </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.House.HouseId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HouseId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

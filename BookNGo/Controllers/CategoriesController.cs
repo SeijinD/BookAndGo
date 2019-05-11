@@ -15,14 +15,12 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: Categories
-        //[Authorize(Role="Admin")]
         public ActionResult Index()
         {
             return View(db.Categories.ToList());
         }
 
         // GET: Categories/Details/5
-        //[Authorize(Role="Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -38,7 +36,6 @@ namespace BookNGo.Controllers
         }
 
         // GET: Categories/Create
-        //[Authorize(Role="Admin")]
         public ActionResult Create()
         {
             return View();
@@ -62,7 +59,6 @@ namespace BookNGo.Controllers
         }
 
         // GET: Categories/Edit/5
-        //[Authorize(Role="Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
