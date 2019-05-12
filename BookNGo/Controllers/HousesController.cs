@@ -89,6 +89,12 @@ namespace BookNGo.Controllers
                 db.Houses.Add(house);
                 db.SaveChanges();
 
+                //change role with add house
+                var control = new AccountController();
+                control.ControllerContext = ControllerContext;
+                control.UserManager.RemoveFromRole(User.Identity.GetUserId(), "Customer");
+                control.UserManager.AddToRole(User.Identity.GetUserId(), "Owner");
+
                 return RedirectToAction("MyHouses","Houses");
             }
             

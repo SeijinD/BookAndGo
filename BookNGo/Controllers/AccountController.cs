@@ -156,7 +156,11 @@ namespace BookNGo.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //add default role
+                    var CurrentUser = UserManager.FindByEmail(user.Email);
+                    var RoleResult = UserManager.AddToRole(CurrentUser.Id, "Customer");
+
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);                   
                     var location = db.Locations.FirstOrDefault(i => i.LocationId == model.LocationId);
                     var createdUser = db.Users.FirstOrDefault(i => i.Email == model.Email);
                     createdUser.Location = location;
