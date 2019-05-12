@@ -4,99 +4,178 @@
     ViewBag.Title = "Home Page";
 }
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Get)) 
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
-<form>
-    <h2>Search It!</h2>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.Label("startDate", "Arrival:")
-        @Html.TextBox("startDate", "", new { @class = "form-control", type = "date" })
-        @Html.ValidationMessage("startDate", "", new { @class = "text-danger" })
-    </div>
-    <div class="form-group">
-        @Html.Label("endDate", "Departure:")
-        @Html.TextBox("endDate", "", new { @class = "form-control", type = "date" })
-        @Html.ValidationMessage("endDate", "", new { @class = "text-danger" })
-    </div>
-    <div class="form-group">
-        @Html.Label("location", "Location:")
-        @Html.DropDownList("location", (SelectList)ViewBag.Location, "Select your location", htmlAttributes: new { @class = "form-control" })
-    </div>
-    <div class="form-group">
-        @Html.Label("category", "Category:")
-        @Html.DropDownList("category", (SelectList)ViewBag.Category, "Select a category", htmlAttributes: new { @class = "form-control" })
-    </div>
-    <div class="form-group">
-        @Html.Label("visitors", "Visitors:")
-        @Html.TextBox("occupancy", "", new { @class = "form-control", placeholder = "Number of visitors" })
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Search" class="btn btn-primary" />
-    </div>
-</form>
+    <form>
+        <h2>Search It!</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("startDate", "Arrival:")
+            @Html.TextBox("startDate", "", new { @class = "form-control", type = "date" })
+            @Html.ValidationMessage("startDate", "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.Label("endDate", "Departure:")
+            @Html.TextBox("endDate", "", new { @class = "form-control", type = "date" })
+            @Html.ValidationMessage("endDate", "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.Label("location", "Location:")
+            @Html.DropDownList("location", (SelectList)ViewBag.Location, "Select your location", htmlAttributes: new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.Label("category", "Category:")
+            @Html.DropDownList("category", (SelectList)ViewBag.Category, "Select a category", htmlAttributes: new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.Label("visitors", "Visitors:")
+            @Html.TextBox("occupancy", "", new { @class = "form-control", placeholder = "Number of visitors" })
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </form>
+
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MaxOccupancy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PricePerNight)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
+@{
+    
+}
 
-        <th></th>
-    </tr>
+<!-- Present the houses in cards -->
+@foreach (var item in Model)
+{
+    <!-- 1st Member Card -->
+    <div class="col-md-4">
+        <div class="card hovercard">
+            <!-- Bind HouseId with ImageId -->
+            <div class="cardheader">
+            </div>
+            <div class="info">
+                <div class="title">
+                    <button class="btn btn-info bnt-sm text-center text-capitalize">
+                        @Html.ActionLink(item.Title, "Details", new { id = item.HouseId })
+                    </button>
+                </div>
+                <div class="desc" style="font-size: large;">@Html.DisplayFor(modelItem => item.Location.LocationName)</div>
+                <div class="desc" style="font-size: large;">@Html.DisplayFor(modelItem => item.PricePerNight)</div>
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="bottom">
+                    <button class="btn btn-lg" style="background-color: rgb(239, 239, 19);">
+                        @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = item.HouseId }, null)
+                    </button>
+                </div>
+            }
+            </div>
+    </div>
+}
 
-    @foreach (var item in Model)
-    {
+    
+@*<!-- Present the houses in cards -->
+    <div class="container">
+        <div class="row">
+            <!-- 1st Member Card -->
+            <div class="col-lg-3 col-sm-6">
+                <div class="card hovercard">
+                    <div class="cardheader">
+                    </div>
+                    <div class="avatar">
+                        <img src="~/Image/George.jpg" />
+                    </div>
+                    <div class="info">
+                        <div class="title">
+                            <a target="_blank" href="https://scripteden.com/">Script Eden</a>
+                        </div>
+                        <div class="desc">Passionate designer</div>
+                        <div class="desc">Curious developer</div>
+                        <div class="desc">Tech geek</div>
+                    </div>
+                    <div class="bottom">
+                        <a class="btn btn-cards btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a class="btn-cards btn-danger btn-sm" rel="publisher"
+                           href="https://plus.google.com/+ahmshahnuralam">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                        <a class="btn-cards btn-primary btn-sm" rel="publisher"
+                           href="https://plus.google.com/shahnuralam">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a class="btn-cards btn-warning btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+
+@*<table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxOccupancy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PricePerNight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location.LocationName)
-            </td>
-            <td>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = item.HouseId }, null)
-                }
-                |@Html.ActionLink("Details", "Details", new { id = item.HouseId })
-            </td>
-        </tr>
-    }
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxOccupancy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PricePerNight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
 
-</table>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxOccupancy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PricePerNight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.LocationName)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = item.HouseId }, null)
+                    }
+                    |@Html.ActionLink("Details", "Details", new { id = item.HouseId })
+                </td>
+            </tr>
+        }
+
+    </table>*@

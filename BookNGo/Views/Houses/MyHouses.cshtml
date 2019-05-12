@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<BookNGo.Models.House>
+
 @{
     ViewBag.Title = "My Houses";
 }
@@ -6,11 +7,15 @@
 <h2>My Houses</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-    @Html.ActionLink("My House Reservations", "MyHouseReservations", "Reservations")
+    @Html.ActionLink("Add House", "Create", null, new { @class = "btn btn-primary" })
+    @if (User.IsInRole("Admin") || User.IsInRole("Owner"))
+    {
+        @Html.ActionLink("Reservations", "MyHouseReservations", "Reservations", new {@class ="btn btn-success" })
+    }
 </p>
-<table class="table">
-    <tr>
+
+<table class="table table-striped table-hover">
+    <tr class="bg-info">
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
@@ -66,5 +71,4 @@
             </td>
         </tr>
     }
-
 </table>

@@ -22,14 +22,15 @@ namespace BookNGo
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
-            //bundles.Add(new StyleBundle("~/Content/css").Include(
-            //          "~/Content/bootstrap.css",
-            //          "~/Content/site.css"));
-
-            // Configure bundle to use Lumen
+            // Default BoostrapTheme
             bundles.Add(new StyleBundle("~/Content/css").Include(
-          "~/Content/bootstrap.lumen.css",
-          "~/Content/site.css"));
+                      "~/Content/bootstrap.css",
+                      "~/Content/site.css"));
+
+            // Add Yeti Style Theme
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                        "~/Content/bootstrap.yeti.css",
+                        "~/Content/site.css"));
         }
     }
 }

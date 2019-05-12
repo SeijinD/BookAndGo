@@ -26,7 +26,7 @@ namespace BookNGo.Controllers
 
             if ( startDate == null && endDate == null && location == 0 && category == 0 && occupancy == 0 )
             {
-                var queryTop = db.Houses.OrderByDescending(t => t.PricePerNight).Take(4);
+                var queryTop = db.Houses.OrderByDescending(t => t.PricePerNight).Take(3);
                 return View(queryTop.ToList());
             }
 
@@ -130,7 +130,6 @@ namespace BookNGo.Controllers
         [Authorize(Roles="Admin")]
         public ActionResult AdminPage()
         {
-
             return View();
         }
 
