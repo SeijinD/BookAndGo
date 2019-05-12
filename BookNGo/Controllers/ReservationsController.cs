@@ -16,14 +16,24 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: My House Reservation
-        [Authorize(Roles = "Owner")]
+        [Authorize(Roles = "Owner, Admin")]
         public ActionResult MyHouseReservations()
         {
             //var currentUser = User.Identity.GetUserId();
-            //var currectUserReservations = db.Reservations.Where(i => i.HouseId == 0).AsQueryable();
+
+            //var query2 = db.Reservations.AsQueryable();
+            //var query = db.Houses.AsQueryable();
+            //var currectUserReservations2 = query2.Where(x => x.ReservationId == 0).ToList();
+            //var currectUserReservations = query.Where(x => x.HouseId == 0).ToList();
+
             //foreach (House item in db.Houses.Where(x => x.OwnerId == currentUser))
             //{
-            //    currectUserReservations = db.Reservations.Where(i => i.HouseId == item.HouseId).AsQueryable();
+            //    currectUserReservations.Add(item);
+
+            //    foreach (Reservation item2 in currectUserReservations)
+            //    {
+            //        currectUserReservations2.Add(item2);
+            //    }
             //}
 
             return View();

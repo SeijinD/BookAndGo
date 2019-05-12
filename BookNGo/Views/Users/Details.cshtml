@@ -78,12 +78,12 @@
 <p>
     @Html.ActionLink("Edit Account", "Edit", new { id = Model.Id })
     @Html.ActionLink("Delete Account", "Delete", new { id = Model.Id })
-    @if (User.IsInRole("Owner"))
+    @if (User.IsInRole("Admin") || User.IsInRole("Owner"))
     {
         @Html.ActionLink("My House", "MyHouses", "Houses")
     }
     @Html.ActionLink("My Reservation", "MyReservations", "Reservations")
-    @if (User.IsInRole("Owner"))
+    @if (User.IsInRole("Admin") || User.IsInRole("Owner"))
     {
         @Html.ActionLink("My House Reservation", "MyHouseReservations", "Reservations")
     }

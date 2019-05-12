@@ -45,6 +45,8 @@ namespace BookNGo.Models
 
         public string OwnerId { get; set; }
 
+        public ICollection<Image> Images { get; set; } //one House = many Image(1-n)
+
         public virtual ICollection<Feature> Features { get; set; } //many House = many Feature(n-n)
     }
 }

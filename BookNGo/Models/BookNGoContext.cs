@@ -26,5 +26,7 @@ namespace BookNGo.Models
 
         public DbSet<Location> Locations { get; set; }
 
+        public DbSet<Image> Images { get; set; }
+
     }
 }

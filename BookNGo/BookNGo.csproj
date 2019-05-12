@@ -189,6 +189,10 @@
     <Compile Include="Migrations\201905110819176_mig1.Designer.cs">
       <DependentUpon>201905110819176_mig1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905121216593_mig2.cs" />
+    <Compile Include="Migrations\201905121216593_mig2.Designer.cs">
+      <DependentUpon>201905121216593_mig2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BookNGoContext.cs" />
@@ -196,6 +200,7 @@
     <Compile Include="Models\Feature.cs" />
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Reservation.cs" />
@@ -354,6 +359,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905110819176_mig1.resx">
       <DependentUpon>201905110819176_mig1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905121216593_mig2.resx">
+      <DependentUpon>201905121216593_mig2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

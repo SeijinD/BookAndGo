@@ -17,7 +17,7 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: My Houses
-        [Authorize(Roles = "Owner" )]
+        [Authorize(Roles = "Owner, Admin")]
         public ActionResult MyHouses()
         {
             var currectUser = User.Identity.GetUserId();
@@ -74,7 +74,7 @@ namespace BookNGo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId,Qwner")] House house)
+        public ActionResult Create([Bind(Include = "HouseId,Title,Description,Address,MaxOccupancy,PricePerNight,LocationId,CategoryId,Qwner")] House house,HttpPostedFileBase Image)
         {
             
             
@@ -87,6 +87,15 @@ namespace BookNGo.Controllers
                 var category = db.Categories.Where(x => x.CategoryId == house.CategoryId).FirstOrDefault();
                 house.Category = category;
                 db.Houses.Add(house);
+                db.SaveChanges();
+
+                //Ιmages
+                string fileName = Path.Combine(Server.MapPath("~/Image/"), Guid.NewGuid().ToString()) + ".jpg";
+                var imageModel = new Image();
+                imageModel.ImageUrl = "~/Image" + fileName;
+                imageModel.HouseId = db.Houses.Where(x => x.HouseId == house.HouseId).FirstOrDefault();
+                Image.SaveAs(fileName);
+                db.Images.Add(imageModel);
                 db.SaveChanges();
 
                 //change role with add house
@@ -102,7 +111,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses/Edit/5
-        [Authorize(Roles = "Owner" )]
+        [Authorize(Roles = "Owner, Admin")]
         public ActionResult Edit(int? id)
         {
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
@@ -141,7 +150,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses/Delete/5
-        [Authorize(Roles = "Owner" )]
+        [Authorize(Roles = "Owner, Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
