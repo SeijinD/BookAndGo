@@ -333,6 +333,7 @@
     <Content Include="Views\Reservations\MyReservations.cshtml" />
     <Content Include="Views\Home\AdminPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Reservations\MyHouseReservations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

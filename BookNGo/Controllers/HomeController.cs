@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookNGo.Models;
+using Microsoft.AspNet.Identity;
 
 
 namespace BookNGo.Controllers
@@ -23,7 +24,13 @@ namespace BookNGo.Controllers
             ViewBag.Location = new SelectList(db.Locations, "LocationId", "LocationName");
             ViewBag.Category = new SelectList(db.Categories, "CategoryId", "CategoryName");
 
-            var Houses = db.Houses.ToList();
+            if ( startDate == null && endDate == null && location == 0 && category == 0 && occupancy == 0 )
+            {
+                var queryTop = db.Houses.OrderByDescending(t => t.PricePerNight).Take(4);
+                return View(queryTop.ToList());
+            }
+
+            //var Houses = db.Houses.ToList();
             var Reservations = db.Reservations.ToList();
 
             var query = db.Houses.AsQueryable();
@@ -56,6 +63,14 @@ namespace BookNGo.Controllers
             }
             if (ModelState.IsValid)
             {
+                foreach (var house in query2.ToList())
+                {
+                    if(User.Identity.GetUserId() == house.OwnerId)
+                    {
+                        query2.Remove(house);
+                    }
+                }
+
                 if (startDate != null && endDate != null)
                 {
                     foreach (var house in query2.ToList())

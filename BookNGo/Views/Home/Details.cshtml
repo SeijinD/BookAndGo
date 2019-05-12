@@ -1,10 +1,10 @@
 ﻿@model BookNGo.Models.House
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Details House";
 }
 
-<h2>Details</h2>
+<h2>Details House</h2>
 
 <div>
     <h4>House</h4>
@@ -72,5 +72,5 @@
     {
         @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = Model.HouseId }, null)
     }
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "MyHouse", "House")
 </p>

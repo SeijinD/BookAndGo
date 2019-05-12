@@ -15,15 +15,30 @@ namespace BookNGo.Controllers
     {
         private BookNGoContext db = new BookNGoContext();
 
-        // GET: My Houses
+        // GET: My House Reservation
+        [Authorize]
+        public ActionResult MyHouseReservations()
+        {
+            //var currentUser = User.Identity.GetUserId();
+            //var currectUserReservations = db.Reservations.Where(i => i.HouseId == 0).AsQueryable();
+            //foreach (House item in db.Houses.Where(x => x.OwnerId == currentUser))
+            //{
+            //    currectUserReservations = db.Reservations.Where(i => i.HouseId == item.HouseId).AsQueryable();
+            //}
+
+            return View();
+        }
+
+
+        // GET: My Reservation
         [Authorize]
         public ActionResult MyReservations()
         {
-            var currentUser = User.Identity.GetUserId();
-            var currentUserReservations = db.Reservations.Where(i => i.ApplicationUserId == currentUser)
+            var currectUser = User.Identity.GetUserId();
+            var currectUserReservations = db.Reservations.Where(i => i.ApplicationUserId == currectUser)
                                                          .Include(x => x.House)
                                                          .ToList();
-            return View(currentUserReservations);
+            return View(currectUserReservations);
         }
 
         // GET: Reservations/Book
@@ -39,6 +54,9 @@ namespace BookNGo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult BookIt([Bind(Include = "ReservationId,StartDate,EndDate,NumberOfOccupants,DateOfBooking,Comments,PriceCharged,ApplicationUserId,HouseId")] Reservation reservation)
         {
+            TimeSpan priceTimeSpan = reservation.EndDate - reservation.StartDate;
+            int price = priceTimeSpan.Days;
+
             if (ViewBag.HouseId != null)
             {
                 ViewBag.HouseId = new SelectList(db.Houses, "Id", "Title", "PricePerNight", "MaxOccupancy", ViewBag.House.Id);
@@ -63,6 +81,7 @@ namespace BookNGo.Controllers
                     ModelState.AddModelError("endDate", "Date is not availability.");
                 }
             }
+
             if (ModelState.IsValid)
             {
                 ViewBag.House = TempData["House"];
@@ -72,7 +91,7 @@ namespace BookNGo.Controllers
                 reservation.NumberOfOccupants = ViewBag.House.MaxOccupancy;
                 if (ViewBag.House.PricePerNight != null)
                 {
-                    reservation.PriceCharged = ViewBag.House.PricePerNight;
+                    reservation.PriceCharged = ViewBag.House.PricePerNight * price;
                 }
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
@@ -130,7 +149,7 @@ namespace BookNGo.Controllers
             Reservation reservation = db.Reservations.Find(id);
             db.Reservations.Remove(reservation);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("MyReservations", "Reservations");
         }
 
         protected override void Dispose(bool disposing)

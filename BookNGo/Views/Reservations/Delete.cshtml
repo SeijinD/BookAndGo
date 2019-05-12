@@ -1,12 +1,12 @@
 ﻿@model BookNGo.Models.Reservation
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Cancel Your Reservation";
 }
 
-<h2>Delete</h2>
+<h2>Cancel Your Reservation</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to cancel this?</h3>
 <div>
     <h4>Reservation</h4>
     <hr />
@@ -82,7 +82,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to My Reservations", "MyReservations", "Reservations")
         </div>
     }
 </div>

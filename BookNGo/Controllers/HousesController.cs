@@ -20,12 +20,12 @@ namespace BookNGo.Controllers
         //[Authorize(Roles = "Owner" )]
         public ActionResult MyHouses()
         {
-            var currentUser = User.Identity.GetUserId();
-            var currentUserHouses = db.Houses.Where(i => i.Owner.Id == currentUser)
+            var currectUser = User.Identity.GetUserId();
+            var currectUserHouses = db.Houses.Where(i => i.Owner.Id == currectUser)
                                              .Include(x => x.Location)
                                              .Include(c => c.Category)
                                              .ToList();
-            return View(currentUserHouses);
+            return View(currectUserHouses);
         }
 
         // GET: Houses

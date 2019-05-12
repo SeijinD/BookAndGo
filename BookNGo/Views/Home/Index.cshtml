@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<BookNGo.Models.House>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home Page";
 }
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+@using (Html.BeginForm("Index", "Home", FormMethod.Get)) 
 {
 <form>
-    <h2>Search for houses</h2>
+    <h2>Search It!</h2>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
@@ -33,7 +33,7 @@
         @Html.TextBox("occupancy", "", new { @class = "form-control", placeholder = "Number of visitors" })
     </div>
     <div class="form-group">
-        <input type="submit" value="Find your house" class="btn btn-primary" />
+        <input type="submit" value="Search" class="btn btn-primary" />
     </div>
 </form>
 }
@@ -94,7 +94,7 @@
                 {
                     @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = item.HouseId }, null)
                 }
-                @Html.ActionLink("Details", "Details", new { id = item.HouseId })
+                |@Html.ActionLink("Details", "Details", new { id = item.HouseId })
             </td>
         </tr>
     }

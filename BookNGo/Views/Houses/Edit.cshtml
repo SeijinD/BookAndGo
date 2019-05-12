@@ -1,10 +1,10 @@
 ﻿@model BookNGo.Models.House
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit House";
 }
 
-<h2>Edit</h2>
+<h2>Edit House</h2>
 
 
 @using (Html.BeginForm())
@@ -82,7 +82,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "MyHouse", "House")
 </div>
 
 @section Scripts {

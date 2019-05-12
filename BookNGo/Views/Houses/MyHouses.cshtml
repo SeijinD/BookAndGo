@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<BookNGo.Models.House>
 @{
-    ViewBag.Title = "MyHouses";
+    ViewBag.Title = "My Houses";
 }
 
 <h2>My Houses</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("My House Reservations", "MyHouseReservations", "Reservations")
 </p>
 <table class="table">
     <tr>
@@ -59,9 +60,9 @@
                 @Html.DisplayFor(modelItem => item.Location.LocationName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.HouseId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.HouseId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.HouseId })
+                @Html.ActionLink("Edit House", "Edit", new { id = item.HouseId }) |
+                @Html.ActionLink("Details House", "Details", new { id = item.HouseId }) |
+                @Html.ActionLink("Delete House", "Delete", new { id = item.HouseId })
             </td>
         </tr>
     }
