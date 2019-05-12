@@ -16,7 +16,7 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: My House Reservation
-        [Authorize]
+        [Authorize(Roles = "Owner")]
         public ActionResult MyHouseReservations()
         {
             //var currentUser = User.Identity.GetUserId();
@@ -102,7 +102,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Reservations
-        //[Authorize(Roles = "Admin" )]
+        [Authorize(Roles = "Admin" )]
         public ActionResult Index()
         {
             var reservations = db.Reservations.Include(r => r.House);

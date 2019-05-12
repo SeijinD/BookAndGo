@@ -10,7 +10,7 @@ using BookNGo.Models;
 
 namespace BookNGo.Controllers
 {
-    //[Authorize(Roles = "Admin" )]
+    [Authorize(Roles = "Admin" )]
     public class FeaturesController : Controller
     {
         private BookNGoContext db = new BookNGoContext();

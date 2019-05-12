@@ -16,7 +16,7 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: Users
-        //[Authorize(Roles = "Admin" )]
+        [Authorize(Roles = "Admin" )]
         public ActionResult Index()
         {
             var houseinclude = db.Houses.Include(x => x.Location).ToList();
@@ -105,7 +105,7 @@ namespace BookNGo.Controllers
             ApplicationUser applicationUser = db.Users.Find(id);
             db.Users.Remove(applicationUser);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Login","Login","Account");
         }
 
         protected override void Dispose(bool disposing)

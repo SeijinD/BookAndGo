@@ -127,7 +127,7 @@ namespace BookNGo.Controllers
             return View();
         }
 
-        [Authorize(Roles="Owner")]
+        [Authorize(Roles="Admin")]
         public ActionResult AdminPage()
         {
 
