@@ -127,11 +127,12 @@ namespace BookNGo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reservation reservation = db.Reservations.Find(id);
+            Reservation reservation = db.Reservations.Find(id);           
             if (reservation == null)
             {
                 return HttpNotFound();
             }
+
             return View(reservation);
         }
 
