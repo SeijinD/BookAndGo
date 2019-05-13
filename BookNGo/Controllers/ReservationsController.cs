@@ -40,6 +40,25 @@ namespace BookNGo.Controllers
         }
 
 
+        // GET: My Old Reservation
+        [Authorize]
+        public ActionResult MyOldReservations()
+        {
+            var currectUser = User.Identity.GetUserId();
+            var currectUserReservations = db.Reservations.Where(i => i.ApplicationUserId == currectUser)
+                                                         .Include(x => x.House)
+                                                         .ToList();
+            foreach (var reservation in currectUserReservations.ToList())
+            {
+                if (reservation.EndDate > DateTime.Now)
+                {
+                    currectUserReservations.Remove(reservation);
+                }
+            }
+
+            return View(currectUserReservations);
+        }
+
         // GET: My Reservation
         [Authorize]
         public ActionResult MyReservations()
