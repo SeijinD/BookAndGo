@@ -92,11 +92,16 @@ namespace BookNGo.Controllers
                 db.SaveChanges();
 
                 //Ιmages
-                string fileName = Path.Combine(Server.MapPath("~/Image/"), Guid.NewGuid().ToString()) + ".jpg";
-                var imageModel = new Image();
-                imageModel.ImageUrl = "~/Image" + fileName;
-                imageModel.HouseId = db.Houses.Where(x => x.HouseId == house.HouseId).FirstOrDefault();
-                Image.SaveAs(fileName);
+                string fileName = "Image/" + Guid.NewGuid().ToString() + ".jpg";
+                var imageModel = new Image
+                {
+
+                    ImageUrl = fileName,
+
+                    HouseId = db.Houses.Where(x => x.HouseId == house.HouseId).FirstOrDefault()
+
+                };
+                Image.SaveAs(Path.Combine(Server.MapPath("~"), fileName));
                 db.Images.Add(imageModel);
                 db.SaveChanges();
 

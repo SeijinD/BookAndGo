@@ -26,7 +26,7 @@ namespace BookNGo.Controllers
 
             if ( startDate == null && endDate == null && location == 0 && category == 0 && occupancy == 0 )
             {
-                var queryTop = db.Houses.OrderByDescending(t => t.PricePerNight).Take(3);
+                var queryTop = db.Houses.Include(h => h.Images).OrderByDescending(t => t.PricePerNight).Take(3);
                 return View(queryTop.ToList());
             }
 

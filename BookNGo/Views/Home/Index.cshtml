@@ -50,7 +50,8 @@
     <div class="col-md-4">
         <div class="card hovercard">
             <!-- Bind HouseId with ImageId -->
-            <div class="cardheader">
+            <div>
+                <img src="@Url.Content("/" + item.Images.First().ImageUrl)" style="background-size: cover; height: 135px;" />
             </div>
             <div class="info">
                 <div class="title">
@@ -69,7 +70,7 @@
                     </button>
                 </div>
             }
-            </div>
+        </div>
     </div>
 }
 

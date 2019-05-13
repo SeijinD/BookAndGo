@@ -90,6 +90,32 @@ namespace BookNGo.Controllers
             return View(feature);
         }
 
+        // GET: Features/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Feature feature = db.Features.Find(id);
+            if (feature == null)
+            {
+                return HttpNotFound();
+            }
+            return View(feature);
+        }
+
+        // POST: Features/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Feature feature = db.Features.Find(id);
+            db.Features.Remove(feature);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
