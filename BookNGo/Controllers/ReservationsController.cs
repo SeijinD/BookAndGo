@@ -15,6 +15,25 @@ namespace BookNGo.Controllers
     {
         private BookNGoContext db = new BookNGoContext();
 
+        // GET: My Old Houses Reservations
+        [Authorize]
+        public ActionResult MyOldHousesReservations()
+        {
+            var currentUser = User.Identity.GetUserId();
+            var currentUserHousesReservations = db.Reservations.Where(i => i.House.OwnerId == currentUser)
+                                                         .Include(x => x.House)
+                                                         .ToList();
+            foreach (var reservation in currentUserHousesReservations.ToList())
+            {
+                if (reservation.EndDate > DateTime.Now)
+                {
+                    currentUserHousesReservations.Remove(reservation);
+                }
+            }
+
+            return View(currentUserHousesReservations);
+        }
+
         // GET: My Houses Reservations
         [Authorize]
         public ActionResult MyHousesReservations()

@@ -346,6 +346,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Reservations\MyHousesReservations.cshtml" />
     <Content Include="Views\Reservations\MyOldReservations.cshtml" />
+    <Content Include="Views\Reservations\MyOldHousesReservations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

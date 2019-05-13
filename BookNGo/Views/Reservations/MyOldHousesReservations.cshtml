@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<BookNGo.Models.Reservation>
 
 @{
-    ViewBag.Title = "My History";
+    ViewBag.Title = "History";
 }
 
-<h2>My History</h2>
+<h2>History</h2>
 
-@Html.ActionLink("My Reservations", "MyReservations", "Reservations", null, new { @class = "btn btn-warning" })
+@Html.ActionLink("My Houses Reservations", "MyHousesReservations", "Reservations", null, new { @class = "btn btn-warning" })
 
 <table class="table">
     <tr>
@@ -31,9 +31,9 @@
         <th>
             @Html.DisplayNameFor(model => model.PriceCharged)
         </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.ApplicationUserId)
-            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationUserId)
+        </th>
         <th></th>
     </tr>
 
@@ -61,12 +61,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PriceCharged)
             </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.ApplicationUserId)
-                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+            </td>
             <td>
                 @Html.ActionLink("Details Reservation", "Details", new { id = item.ReservationId }) @*|
-                @Html.ActionLink("Cancel Reservation", "Delete", new { id = item.ReservationId })*@
+                    @Html.ActionLink("Cancel Reservation", "Delete", new { id=item.ReservationId })*@
             </td>
         </tr>
     }
