@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<BookNGo.Models.Reservation>
 
 @{
-    ViewBag.Title = "My Old Reservations";
+    ViewBag.Title = "History";
 }
 
 <h2>My Old Reservations</h2>
 
-@Html.ActionLink("My Reservation", "MyReservations", "Reservations", new { @class = "btn btn-warning" })
+@Html.ActionLink("History", "MyReservations", "Reservations", new { @class = "btn btn-warning" })
 
 <table class="table">
     <tr>

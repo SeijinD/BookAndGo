@@ -15,28 +15,15 @@ namespace BookNGo.Controllers
     {
         private BookNGoContext db = new BookNGoContext();
 
-        // GET: My House Reservation
+        // GET: My Houses Reservations
         [Authorize]
-        public ActionResult MyHouseReservations()
+        public ActionResult MyHousesReservations()
         {
-            //var currentUser = User.Identity.GetUserId();
-
-            //var query2 = db.Reservations.AsQueryable();
-            //var query = db.Houses.AsQueryable();
-            //var currectUserReservations2 = query2.Where(x => x.ReservationId == 0).ToList();
-            //var currectUserReservations = query.Where(x => x.HouseId == 0).ToList();
-
-            //foreach (House item in db.Houses.Where(x => x.OwnerId == currentUser))
-            //{
-            //    currectUserReservations.Add(item);
-
-            //    foreach (Reservation item2 in currectUserReservations)
-            //    {
-            //        currectUserReservations2.Add(item2);
-            //    }
-            //}
-
-            return View();
+            var currentUser = User.Identity.GetUserId();
+            var currentUserHousesReservations = db.Reservations.Where(i => i.House.OwnerId == currentUser)
+                                                         .Include(x => x.House)
+                                                         .ToList();
+            return View(currentUserHousesReservations);
         }
 
 
@@ -91,6 +78,7 @@ namespace BookNGo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult BookIt([Bind(Include = "ReservationId,StartDate,EndDate,NumberOfOccupants,DateOfBooking,Comments,PriceCharged,ApplicationUserId,HouseId")] Reservation reservation)
         {
+            ViewBag.House = TempData["House"];
             TimeSpan priceTimeSpan = reservation.EndDate - reservation.StartDate;
             int price = priceTimeSpan.Days;
 
@@ -120,15 +108,21 @@ namespace BookNGo.Controllers
             }
 
             if (ModelState.IsValid)
-            {
-                ViewBag.House = TempData["House"];
+            {              
                 reservation.HouseId = ViewBag.House.HouseId;
                 reservation.ApplicationUserId = User.Identity.GetUserId();
                 reservation.DateOfBooking = DateTime.Today;
                 reservation.NumberOfOccupants = ViewBag.House.MaxOccupancy;
                 if (ViewBag.House.PricePerNight != null)
                 {
-                    reservation.PriceCharged = ViewBag.House.PricePerNight * price;
+                    if (ViewBag.House.OwnerId == User.Identity.GetUserId())
+                    {
+                        reservation.PriceCharged = 0;
+                    }
+                    else
+                    {
+                        reservation.PriceCharged = ViewBag.House.PricePerNight * price;
+                    }
                 }
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
