@@ -16,7 +16,7 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: My House Reservation
-        [Authorize(Roles = "Owner, Admin")]
+        [Authorize]
         public ActionResult MyHouseReservations()
         {
             //var currentUser = User.Identity.GetUserId();

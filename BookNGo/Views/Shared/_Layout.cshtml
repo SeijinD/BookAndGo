@@ -27,18 +27,20 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Our Team", "About", "Home")</li>
+                    @* Added Code *@
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("My House", "MyHouses", "Houses")</li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("My Reservation", "MyReservations", "Reservations")</li>
+                    }
                     @* Only appear admin panel if case is true *@
                     @if (User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Admin Page", "AdminPage", "Home")</li>
                     }
-
-                    @* Added Code *@
-                    @if (User.IsInRole("Admin") || User.IsInRole("Owner"))
-                    {
-                        <li>@Html.ActionLink("My House", "MyHouses", "Houses")</li>
-                    }
-                    <li>@Html.ActionLink("My Reservation", "MyReservations", "Reservations")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

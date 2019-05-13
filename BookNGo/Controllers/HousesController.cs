@@ -17,7 +17,7 @@ namespace BookNGo.Controllers
         private BookNGoContext db = new BookNGoContext();
 
         // GET: My Houses
-        [Authorize(Roles = "Owner, Admin")]
+        [Authorize]
         public ActionResult MyHouses()
         {
             var currectUser = User.Identity.GetUserId();
@@ -111,7 +111,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses/Edit/5
-        [Authorize(Roles = "Owner, Admin")]
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
@@ -150,7 +150,7 @@ namespace BookNGo.Controllers
         }
 
         // GET: Houses/Delete/5
-        [Authorize(Roles = "Owner, Admin")]
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

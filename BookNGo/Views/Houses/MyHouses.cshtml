@@ -7,11 +7,8 @@
 <h2>My Houses</h2>
 
 <p>
-    @Html.ActionLink("Add House", "Create", null, new { @class = "btn btn-primary" })
-    @if (User.IsInRole("Admin") || User.IsInRole("Owner"))
-    {
-        @Html.ActionLink("Reservations", "MyHouseReservations", "Reservations", new {@class ="btn btn-success" })
-    }
+    @Html.ActionLink("Add House", "Create", "House", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Reservations", "MyHouseReservations", "Reservations", new {@class ="btn btn-success" })
 </p>
 
 <table class="table table-striped table-hover">
