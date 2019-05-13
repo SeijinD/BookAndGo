@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookNGo.Models;
+using BookNGo.ViewModels;
 using Microsoft.AspNet.Identity;
 
 namespace BookNGo.Controllers
@@ -35,7 +36,7 @@ namespace BookNGo.Controllers
             var houseinclude = db.Houses.Include( x => x.Location).ToList();
             houseinclude = db.Houses.Include(x => x.Category).ToList();
             return View(houseinclude);
-        }
+        }        
 
         // GET: Houses/Details/5
         [Authorize]
@@ -48,11 +49,12 @@ namespace BookNGo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            House house = db.Houses.Find(id);
-            var location = db.Locations.Where(x => x.LocationId == house.LocationId).FirstOrDefault();
-            house.Location = location;
-            var category = db.Categories.Where(x => x.CategoryId == house.CategoryId).FirstOrDefault();
-            house.Category = category;
+            HouseImage house = new HouseImage();
+            house.House = db.Houses.Find(id);
+            var location = db.Locations.Where(x => x.LocationId == house.House.LocationId).FirstOrDefault();
+            house.House.Location = location;
+            var category = db.Categories.Where(x => x.CategoryId == house.House.CategoryId).FirstOrDefault();
+            house.House.Category = category;
             if (house == null)
             {
                 return HttpNotFound();

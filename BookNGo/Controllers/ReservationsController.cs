@@ -48,6 +48,14 @@ namespace BookNGo.Controllers
             var currectUserReservations = db.Reservations.Where(i => i.ApplicationUserId == currectUser)
                                                          .Include(x => x.House)
                                                          .ToList();
+            foreach (var reservation in currectUserReservations.ToList())
+            {
+                if (reservation.EndDate < DateTime.Now)
+                {
+                    currectUserReservations.Remove(reservation);
+                }
+            }
+
             return View(currectUserReservations);
         }
 
