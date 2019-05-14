@@ -317,3 +317,13 @@ ul.nav > li > a:hover {
 .magnify-label-sm {
     font-size: 110%;
 }
+
+.magnify-label-100 {
+    font-size: 100%;
+}
+
+.btn-default-bg-white {
+    color: #333333;
+    background-color: white;
+    border-color: #cccccc;
+}
