@@ -59,6 +59,8 @@ namespace BookNGo.Controllers
             {
                 return HttpNotFound();
             }
+            List<Image> image = db.Images.Where(x => x.HouseId.HouseId == house.House.HouseId).ToList();
+            house.House.Images = image;
             return View(house);
         }
 

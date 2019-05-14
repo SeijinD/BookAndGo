@@ -5,8 +5,11 @@
 }
 
 <h2>House Details</h2>
-
 <hr />
+
+<div>
+    <img src="@Url.Content("/" + Model.House.Images.First().ImageUrl)" style="background-size: cover; height: 230px; width: 350px;" />
+</div>
 
 <table class="table table-striped table-hover">
     <tr>
@@ -28,74 +31,6 @@
         <td>@Html.DisplayFor(model => model.House.Location.LocationName)</td>
     </tr>
 </table>
-
-@*@{
-        string appPath = HttpContext.Current.Server.MapPath("~");
-        string res = string.Format("~{0}", Model.Image.ImageUrl.Replace(appPath, "").Replace("\\", "/"));
-        string imgscr = res;
-    }
-
-    <img src="@imgscr" style="max-height:200px; max-width:200px" />*@
-
-@*<dl class="dl-horizontal">
-
-            <dt>
-                @Html.DisplayNameFor(model => model.House.Title)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.House.Title)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.House.Description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.House.Description)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.House.Address)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.House.Address)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.House.MaxOccupancy)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.House.MaxOccupancy)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.House.PricePerNight)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.House.PricePerNight)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.House.Category)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.House.Category.CategoryName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.House.Location)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.House.Location.LocationName)
-            </dd>
-        </dl>
-    </div>*@
 
 <div>
     @Html.ActionLink("Edit", "Edit", new { id = Model.House.HouseId }, new { @class = "btn btn-primary btn-sm" })

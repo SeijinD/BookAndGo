@@ -8,11 +8,11 @@
 
 <p>
     @Html.ActionLink("Add House", "Create", "House", new { @class = "btn btn-primary" })
-    @Html.ActionLink("Reservations", "MyHousesReservations", "Reservations", null, new {@class ="btn btn-success" })
+    @Html.ActionLink("Reservations", "MyHousesReservations", "Reservations", null, new { @class = "btn btn-success" })
 </p>
 
 <table class="table table-striped table-hover">
-    <tr class="bg-info">
+    <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
@@ -40,32 +40,32 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.MaxOccupancy)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.PricePerNight)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.Category.CategoryName)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.Location.LocationName)
             </td>
             <td>
-                @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = item.HouseId }, null) |
-                @Html.ActionLink("Edit House", "Edit", new { id = item.HouseId }) |
-                @Html.ActionLink("Details House", "Details", new { id = item.HouseId }) |
-                @Html.ActionLink("Delete House", "Delete", new { id = item.HouseId })
+                @Html.ActionLink("Book It!", "BookIt", "Reservations", new { houseId = item.HouseId }, new { @class = "btn btn-info btn-sm" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.HouseId }, new { @class = "btn btn-primary btn-sm" })
+                @Html.ActionLink("Details", "Details", new { id = item.HouseId }, new { @class = "btn btn-warning btn-sm" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.HouseId }, new { @class = "btn btn-danger btn-sm" })
             </td>
         </tr>
     }

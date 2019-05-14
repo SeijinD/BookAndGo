@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Booking</h2>
 @{
     TempData["House"] = ViewBag.House;
 }
@@ -14,11 +14,10 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Reservation</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2 magnify-label-sm" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
                 @Html.ValidationMessage("startDate", "", new { @class = "text-danger" })
@@ -26,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2 magnify-label-sm" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
                 @Html.ValidationMessage("endDate", "", new { @class = "text-danger" })
@@ -34,7 +33,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2 magnify-label-sm" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
@@ -42,43 +41,45 @@
         </div>
 
         @*<div class="form-group">
-            @Html.LabelFor(model => model.PriceCharged, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+                @Html.LabelFor(model => model.PriceCharged, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
 
-                @{
-                    string priceShow = "";
-                    if (Model.EndDate != null && Model.StartDate != null)
-                    {
-                        TimeSpan priceTimeSpan = Model.EndDate - Model.StartDate;
-                        int price = priceTimeSpan.Days;
-                        price = ViewBag.House.PricePerNight * price;
-                        priceShow = Convert.ToString(price);
+                    @{
+                        string priceShow = "";
+                        if (Model.EndDate != null && Model.StartDate != null)
+                        {
+                            TimeSpan priceTimeSpan = Model.EndDate - Model.StartDate;
+                            int price = priceTimeSpan.Days;
+                            price = ViewBag.House.PricePerNight * price;
+                            priceShow = Convert.ToString(price);
+                        }
+                        else
+                        {
+                            priceShow = "0";
+                        }
+
+
+
+
                     }
-                    else
-                    {
-                        priceShow = "0";
-                    }
 
-
-
-
-                }
-
-                @Html.Label(@priceShow, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PriceCharged, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+                    @Html.Label(@priceShow, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PriceCharged, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to My Reservation", "MyReservations", "Reservations")
+    @*@Html.ActionLink("Back", "MyReservations", "Reservations", null, new { @class="btn btn-info btn-sm"})*@
+    @* Should probably redirect back to houses instead of reservations*@
+    @Html.ActionLink("Back", "MyHouses", "Houses", null, new { @class = "btn btn-info btn-sm" })
 </div>
 
 @section Scripts {
