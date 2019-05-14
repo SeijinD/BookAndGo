@@ -4,85 +4,38 @@
     ViewBag.Title = "Cancel Your Reservation";
 }
 
-<h2>Cancel Your Reservation</h2>
-
-<h3>Are you sure you want to cancel this?</h3>
+<h2>Cancellation</h2>
+<hr />
+<h3>Do you wish to cancel your reservation?</h3>
 <div>
-    <h4>Reservation</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.House.Title)
-        </dt>
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.House.Title)</th>
+            <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+            <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+            <th>@Html.DisplayNameFor(model => model.NumberOfOccupants)</th>
+            <th>@Html.DisplayNameFor(model => model.DateOfBooking)
+            <th>@Html.DisplayNameFor(model => model.Comments)</th>
+            <th>@Html.DisplayNameFor(model => model.PriceCharged)</th>
+        </tr>
+        <tr>
+            <td>@Html.DisplayFor(model => model.House.Title)</td>
+            <td>@Html.DisplayFor(model => model.StartDate)</td>
+            <td>@Html.DisplayFor(model => model.EndDate)</td>
+            <td>@Html.DisplayFor(model => model.NumberOfOccupants)</td>
+            <td>@Html.DisplayFor(model => model.DateOfBooking)
+            <td>@Html.DisplayFor(model => model.Comments)</td>
+            <td>@Html.DisplayFor(model => model.PriceCharged)</td>
+        </tr>
+    </table>
 
-        <dd>
-            @Html.DisplayFor(model => model.House.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NumberOfOccupants)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumberOfOccupants)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateOfBooking)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateOfBooking)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Comments)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comments)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PriceCharged)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PriceCharged)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationUserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationUserId)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-    <div class="form-actions no-color">
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        @Html.ActionLink("Back to Home", "Index", "Home")
-    </div>
+        <div class="form-actions no-color">
+            <input type="submit" value="Cancel" class="btn btn-danger" />
+            @Html.ActionLink("Back to Home", "Index", "Reservations", null, new { @class="btn btn-info" })
+        </div>
     }
 </div>

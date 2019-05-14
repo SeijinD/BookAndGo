@@ -11,7 +11,7 @@ namespace BookNGo.Models
         [Key]
         public int CategoryId { get; set; }
 
-        [Display(Name = "Name Category")]
+        [Display(Name = "Category Name")]
         [Required(ErrorMessage = "Category Required")]
         [StringLength(255)]
         public string CategoryName { get; set; }

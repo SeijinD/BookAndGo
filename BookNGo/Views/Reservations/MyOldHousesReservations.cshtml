@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<BookNGo.Models.Reservation>
 
-@{
-    ViewBag.Title = "History";
-}
+@*@{
+        ViewBag.Title = "History";
+    }*@
 
 <h2>History</h2>
 
-@Html.ActionLink("My Houses Reservations", "MyHousesReservations", "Reservations", null, new { @class = "btn btn-warning" })
-
-<table class="table">
+<table class="table table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.House.Title)
@@ -32,7 +30,7 @@
             @Html.DisplayNameFor(model => model.PriceCharged)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ApplicationUserId)
+            @*@Html.DisplayNameFor(model => model.ApplicationUserId)*@
         </th>
         <th></th>
     </tr>
@@ -40,35 +38,36 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.House.Title)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.StartDate)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.NumberOfOccupants)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.DateOfBooking)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.Comments)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.PriceCharged)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                @*@Html.DisplayFor(modelItem => item.ApplicationUser.UserName)*@
             </td>
-            <td>
-                @Html.ActionLink("Details Reservation", "Details", new { id = item.ReservationId }) @*|
-                    @Html.ActionLink("Cancel Reservation", "Delete", new { id=item.ReservationId })*@
+            <td style="font-size: 115%; padding-top: 15px;">
+                @*@Html.ActionLink("Reservation Details", "Details", new { id = item.ReservationId })*@
+                @Html.ActionLink("Reservation Details", "Details", new { id = item.ReservationId }, new { @class = "btn btn-warning btn-sm" })
             </td>
         </tr>
     }
-
 </table>
+
+@Html.ActionLink("My Houses Reservations", "MyHousesReservations", "Reservations", null, new { @class = "btn btn-warning" })

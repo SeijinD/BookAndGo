@@ -5,6 +5,7 @@ body {
     padding-bottom: 20px;
     /* Google Fonts */
     font-family: 'Roboto', 'Open Sans', 'Lato', sans-serif, serif;
+    cursor: pointer;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -307,4 +308,12 @@ ul.nav > li > a:hover {
     width: 32px;
     height: 32px;
     line-height: 18px;
+}
+
+.magnify-label {
+    font-size: 120%;
+}
+
+.magnify-label-sm {
+    font-size: 110%;
 }

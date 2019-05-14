@@ -29,7 +29,7 @@
             @Html.DropDownList("category", (SelectList)ViewBag.Category, "Select a category", htmlAttributes: new { @class = "form-control" })
         </div>
         <div class="form-group">
-            @Html.Label("visitors", "Visitors:")
+            @Html.Label("occupancy", "Visitors:")
             @Html.TextBox("occupancy", "", new { @class = "form-control", placeholder = "Number of visitors" })
         </div>
         <div class="form-group">
@@ -50,11 +50,12 @@
     <div class="col-md-4">
         <div class="card hovercard">
             <!-- Bind HouseId with ImageId -->
-            <div class="cardheader">
+            <div>
+                <img src="@Url.Content("/" + item.Images.First().ImageUrl)" style="background-size: cover; height: 135px;" />
             </div>
             <div class="info">
                 <div class="title">
-                    <button class="btn btn-info bnt-sm text-center text-capitalize">
+                    <button class="btn btn-info btn-sm text-center text-capitalize">
                         @Html.ActionLink(item.Title, "Details", new { id = item.HouseId })
                     </button>
                 </div>

@@ -6,9 +6,7 @@
 
 <h2>My Reservations</h2>
 
-@Html.ActionLink("My History", "MyOldReservations", "Reservations", null, new { @class = "btn btn-warning" })
-
-<table class="table">
+<table class="table table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.House.Title)
@@ -32,42 +30,45 @@
             @Html.DisplayNameFor(model => model.PriceCharged)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.ApplicationUserId)
-        </th>*@
+                @Html.DisplayNameFor(model => model.ApplicationUserId)
+            </th>*@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.House.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberOfOccupants)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfBooking)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comments)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PriceCharged)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.ApplicationUserId)
-        </td>*@
-        <td>
-            @Html.ActionLink("Details Reservation", "Details", new { id=item.ReservationId }) |
-            @Html.ActionLink("Cancel Reservation", "Delete", new { id=item.ReservationId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="font-size: 115%; padding-top: 15px;">
+                @Html.DisplayFor(modelItem => item.House.Title)
+            </td>
+            <td style="font-size: 115%; padding-top: 15px;">
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td style="font-size: 115%; padding-top: 15px;">
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td style="font-size: 115%; padding-top: 15px;">
+                @Html.DisplayFor(modelItem => item.NumberOfOccupants)
+            </td>
+            <td style="font-size: 115%; padding-top: 15px;">
+                @Html.DisplayFor(modelItem => item.DateOfBooking)
+            </td>
+            <td style="font-size: 115%; padding-top: 15px;">
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+            <td style="font-size: 115%; padding-top: 15px;">
+                @Html.DisplayFor(modelItem => item.PriceCharged)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUserId)
+                </td>*@
+            <td>
+                @Html.ActionLink("Details Reservation", "Details", new { id = item.ReservationId }, new { @class="btn btn-warning btn-sm"})
+                @Html.ActionLink("Cancel Reservation", "Delete", new { id = item.ReservationId }, new { @class = "btn btn-danger btn-sm" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@Html.ActionLink("My History", "MyOldReservations", "Reservations", null, new { @class = "btn btn-info" })

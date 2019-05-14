@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -193,10 +193,6 @@
     <Compile Include="Migrations\201905121216593_mig2.Designer.cs">
       <DependentUpon>201905121216593_mig2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905121307383_12052019.cs" />
-    <Compile Include="Migrations\201905121307383_12052019.Designer.cs">
-      <DependentUpon>201905121307383_12052019.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BookNGoContext.cs" />
@@ -224,6 +220,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Image\BackgroundImage.jpeg" />
+    <Content Include="Image\favicon.png" />
     <Content Include="Image\George.jpg" />
     <Content Include="Image\Kostas.jpg" />
     <Content Include="Image\Logo.png" />
@@ -233,7 +230,6 @@
     <Content Include="Image\house4.jpeg" />
     <Content Include="Image\Maria.jpg" />
     <Content Include="Image\Meletis.jpg" />
-    <Content Include="Image\Reflections.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -347,6 +343,8 @@
     <Content Include="Views\Reservations\MyHousesReservations.cshtml" />
     <Content Include="Views\Reservations\MyOldReservations.cshtml" />
     <Content Include="Views\Reservations\MyOldHousesReservations.cshtml" />
+    <Content Include="Views\Locations\Delete.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -369,9 +367,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905121216593_mig2.resx">
       <DependentUpon>201905121216593_mig2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905121307383_12052019.resx">
-      <DependentUpon>201905121307383_12052019.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

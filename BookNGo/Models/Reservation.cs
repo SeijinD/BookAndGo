@@ -20,7 +20,7 @@ namespace BookNGo.Models
         [Required(ErrorMessage = "End Date Required")]        
         public DateTime EndDate { get; set; }
 
-        [Display(Name = "Occupants Number ")]
+        [Display(Name = "Occupants")]
         [Required(ErrorMessage = "Occupants Number Required")]        
         public int NumberOfOccupants { get; set; }
 

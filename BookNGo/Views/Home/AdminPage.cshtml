@@ -1,49 +1,26 @@
-﻿@{
-    ViewBag.Title = "Admin Page";
-}
+﻿@*@{
+        ViewBag.Title = "Admin Page";
+    }*@
 
-<h2>Admin Page</h2>
+<h2>Admin Panel</h2>
 
-<div class="container-fluid text-justify">
+<br />
+
+<!-- Admin Panel -->
+<div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-offset-1 col-md-2 no-padding ">
-                <!-- Location Button -->
-                @Html.ActionLink("Location", "Index", "Locations", null, new { @class = "btn btn-primary btn-block btn-large" })
-            </div>
-            <div class="col-md-2 no-padding">
-                <!-- Category Button -->
-                @Html.ActionLink("Category", "Index", "Categories", null, new { @class = "btn btn-success btn-block btn-large" })
-            </div>
-            @*<div class="col-md-2 no-padding">
-                 Feature Button
-                @Html.ActionLink("Feature", "Index", "Features", null, new { @class = "btn btn-info btn-block btn-large" })
-
-            </div>*@
-            <div class="col-md-2 no-padding">
-                <!-- Reservation Button -->
-                @Html.ActionLink("Reservation", "Index", "Reservations", null, new { @class = "btn btn-warning btn-block btn-large" })
-            </div>
-            <div class="col-md-2 no-padding">
-                <!-- House Button -->
-                @Html.ActionLink("House", "Index", "Houses", null, new { @class = "btn btn-danger btn-block btn-large" })
+        <div class="col-md-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Options</h3>
+                </div>
+                <div class="panel-body">
+                        @Html.ActionLink("Location", "Index", "Locations", null, new { @class = "btn btn-primary btn-block" })
+                        @Html.ActionLink("Category", "Index", "Categories", null, new { @class = "btn btn-success btn-block" })
+                        @Html.ActionLink("Reservation", "Index", "Reservations", null, new { @class = "btn btn-warning btn-block" })
+                        @Html.ActionLink("House", "Index", "Houses", null, new { @class = "btn btn-danger btn-block" })
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-@*<div>
-        @Html.ActionLink("Location", "Index", "Locations")
-    </div>
-    <div>
-        @Html.ActionLink("Category", "Index", "Categories")
-    </div>
-    <div>
-        @Html.ActionLink("Feature", "Index", "Features")
-    </div>
-    <div>
-        @Html.ActionLink("Reservation", "Index", "Reservations")
-    </div>
-    <div>
-        @Html.ActionLink("House", "Index", "Houses")
-    </div>*@

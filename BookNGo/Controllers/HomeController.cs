@@ -24,9 +24,9 @@ namespace BookNGo.Controllers
             ViewBag.Location = new SelectList(db.Locations, "LocationId", "LocationName");
             ViewBag.Category = new SelectList(db.Categories, "CategoryId", "CategoryName");
 
-            if ( startDate == null && endDate == null && location == 0 && category == 0 && occupancy == 0 )
+            if (startDate == null && endDate == null && location == 0 && category == 0 && occupancy == 0)
             {
-                var queryTop = db.Houses.OrderByDescending(t => t.PricePerNight).Take(3);
+                var queryTop = db.Houses.Include(h => h.Images).OrderByDescending(t => t.PricePerNight).Take(3);
                 return View(queryTop.ToList());
             }
 
@@ -35,8 +35,8 @@ namespace BookNGo.Controllers
 
             var query = db.Houses.AsQueryable();
 
-            var queryEmpty = query;
-            queryEmpty = query.Where(x => x.HouseId == 0);
+            var queryEmpty = query.Where(x => x.HouseId == 0);
+            query = db.Houses.Include(h => h.Images);
 
             if (location > 0)
             {

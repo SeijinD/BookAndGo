@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<BookNGo.Models.House>
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>Index</h2>
+@*@{
+    ViewBag.Title = "Index";
+}*@
+
+<h2>My Houses</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class="btn btn-info btn-sm"})
 </p>
-<table class="table">
+<table class="table table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -37,36 +38,36 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.MaxOccupancy)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.PricePerNight)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.Category.CategoryName)
             </td>
-            <td>
+            <td style="font-size: 115%; padding-top: 15px;">
                 @Html.DisplayFor(modelItem => item.Location.LocationName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.HouseId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.HouseId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.HouseId })
+                @Html.ActionLink("Edit", "Edit", new { id = item.HouseId }, new { @class = "btn btn-primary btn-sm" })
+                @Html.ActionLink("Details", "Details", new { id = item.HouseId }, new { @class = "btn btn-warning btn-sm" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.HouseId }, new { @class = "btn btn-danger btn-sm" })
             </td>
         </tr>
     }
 
 </table>
 <div>
-    @Html.ActionLink("Back", "AdminPage", "Home")
+    @Html.ActionLink("Back", "AdminPage", "Home", null, new { @class="btn btn-info btn-sm"})
 </div>
