@@ -1,6 +1,8 @@
 ﻿/* Custom Styles */
 
 body {
+    min-height: 100%;
+    width: 100%;
     padding-top: 50px;
     padding-bottom: 20px;
     /* Google Fonts */
@@ -329,11 +331,6 @@ ul.nav > li > a:hover {
 }
 
 /* Footer */
-
-footer {
-    padding: 0;
-    margin: 0;
-}
 
 .footer {
     position: fixed;

@@ -1,17 +1,17 @@
 ﻿@model BookNGo.Models.House
 
-@{
-    ViewBag.Title = "Details House";
-}
+@*@{
+        ViewBag.Title = "Details House";
+}*@
 
-<<h2>House Details</h2>
+<h2>House Details</h2>
 <hr />
 
 <div>
-    <img src="@Url.Content("/" + Model.Images.First().ImageUrl)" style="background-size: cover; height: 230px; width: 350px;" />
+    <img src="@Url.Content("/" + Model.Images.First().ImageUrl)" style="background-size: cover; height: 230px; width: 350px; border: 1px solid gray;" />
 </div>
 
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover" style="margin-top: 20px;">
     <tr>
         <th>@Html.DisplayNameFor(model => model.Title)</th>
         <th>@Html.DisplayNameFor(model => model.Description)</th>
@@ -32,10 +32,10 @@
     </tr>
 </table>
 
-<p>
+<div>
     @if (User.Identity.IsAuthenticated)
     {
-        @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = Model.HouseId }, new { @class = "btn btn-primary btn-sm" })
+        @Html.ActionLink("Book It!", "BookIt", "Reservations", new { houseId = Model.HouseId }, new { @class = "btn btn-primary btn-sm" })
     }
-    |@Html.ActionLink("Back to Home", "Index", "Home", new { @class = "btn btn-info btn-sm" })
-</p>
+    @Html.ActionLink("Back", "Index", "Home", new { @class = "btn btn-info btn-sm" })
+</div>
