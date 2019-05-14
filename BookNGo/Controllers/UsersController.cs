@@ -19,8 +19,8 @@ namespace BookNGo.Controllers
         [Authorize(Roles = "Admin" )]
         public ActionResult Index()
         {
-            var houseinclude = db.Houses.Include(x => x.Location).ToList();
-            return View(houseinclude);
+            var userInclude = db.Users.Include(x => x.Location).ToList();
+            return View(userInclude);
         }
 
         // GET: Users/Details/5
