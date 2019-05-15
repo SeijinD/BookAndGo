@@ -43,6 +43,9 @@ namespace BookNGo.Models
 
         public ICollection<Reservation> Reservations { get; set; } //ενας User εχει πολλα Reservation(1-n)
 
+        [Display(Name = "Photo")]
+        public string ImageUrl { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

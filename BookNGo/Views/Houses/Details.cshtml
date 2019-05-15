@@ -1,38 +1,38 @@
-﻿@model BookNGo.ViewModels.HouseImage
+﻿@model BookNGo.Models.House
 
 @{
     ViewBag.Title = "House Details";
 }
 
-<h2>House Details</h2>
+<h2>@Model.Title Details</h2>
 <hr />
 
 <div>
-    <img src="@Url.Content("/" + Model.House.Images.First().ImageUrl)" style="background-size: cover; height: 230px; width: 350px;" />
+    <img src="@Url.Content("/" + Model.Images.First().ImageUrl)" style="background-size: cover; height: 230px; width: 350px;" />
 </div>
 
 <table class="table table-striped table-hover">
     <tr>
-        <th>@Html.DisplayNameFor(model => model.House.Title)</th>
-        <th>@Html.DisplayNameFor(model => model.House.Description)</th>
-        <th>@Html.DisplayNameFor(model => model.House.Address)</th>
-        <th>@Html.DisplayNameFor(model => model.House.MaxOccupancy)</th>
-        <th>@Html.DisplayNameFor(model => model.House.PricePerNight)
-        <th>@Html.DisplayNameFor(model => model.House.Category)</th>
-        <th>@Html.DisplayNameFor(model => model.House.Location)</th>
+        <th>@Html.DisplayNameFor(model => model.Title)</th>
+        <th>@Html.DisplayNameFor(model => model.Description)</th>
+        <th>@Html.DisplayNameFor(model => model.Address)</th>
+        <th>@Html.DisplayNameFor(model => model.MaxOccupancy)</th>
+        <th>@Html.DisplayNameFor(model => model.PricePerNight)
+        <th>@Html.DisplayNameFor(model => model.Category)</th>
+        <th>@Html.DisplayNameFor(model => model.Location)</th>
     </tr>
     <tr style="font-size: 115%; padding-top: 15px;">
-        <td>@Html.DisplayFor(model => model.House.Title)</td>
-        <td>@Html.DisplayFor(model => model.House.Description)</td>
-        <td>@Html.DisplayFor(model => model.House.Address)</td>
-        <td>@Html.DisplayFor(model => model.House.MaxOccupancy)</td>
-        <td>@Html.DisplayFor(model => model.House.PricePerNight)
-        <td>@Html.DisplayFor(model => model.House.Category.CategoryName)</td>
-        <td>@Html.DisplayFor(model => model.House.Location.LocationName)</td>
+        <td>@Html.DisplayFor(model => model.Title)</td>
+        <td>@Html.DisplayFor(model => model.Description)</td>
+        <td>@Html.DisplayFor(model => model.Address)</td>
+        <td>@Html.DisplayFor(model => model.MaxOccupancy)</td>
+        <td>@Html.DisplayFor(model => model.PricePerNight)
+        <td>@Html.DisplayFor(model => model.Category.CategoryName)</td>
+        <td>@Html.DisplayFor(model => model.Location.LocationName)</td>
     </tr>
 </table>
 
 <div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.House.HouseId }, new { @class = "btn btn-primary btn-sm" })
-    @Html.ActionLink("Back", "Index", new { id = Model.House.HouseId }, new { @class = "btn btn-info btn-sm" })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HouseId }, new { @class = "btn btn-primary btn-sm" })
+    @Html.ActionLink("Back", "MyHouses", "Houses", new { id = Model.HouseId }, new { @class = "btn btn-info btn-sm" })
 </div>

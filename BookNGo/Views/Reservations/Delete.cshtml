@@ -33,9 +33,9 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Cancel" class="btn btn-danger" />
-            @Html.ActionLink("Back to Home", "Index", "Reservations", null, new { @class="btn btn-info" })
-        </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Cancel" class="btn btn-danger" />
+        @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-info" })
+    </div>
     }
 </div>

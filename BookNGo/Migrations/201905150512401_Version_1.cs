@@ -3,7 +3,7 @@ namespace BookNGo.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class mig1 : DbMigration
+    public partial class Version_1 : DbMigration
     {
         public override void Up()
         {
@@ -48,6 +48,18 @@ namespace BookNGo.Migrations
                 .Index(t => t.OwnerId);
             
             CreateTable(
+                "dbo.Images",
+                c => new
+                    {
+                        ImageId = c.Int(nullable: false, identity: true),
+                        ImageUrl = c.String(nullable: false),
+                        HouseId_HouseId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ImageId)
+                .ForeignKey("dbo.Houses", t => t.HouseId_HouseId, cascadeDelete: true)
+                .Index(t => t.HouseId_HouseId);
+            
+            CreateTable(
                 "dbo.Locations",
                 c => new
                     {
@@ -66,6 +78,7 @@ namespace BookNGo.Migrations
                         Gender = c.String(maxLength: 255),
                         DateOfBirth = c.DateTime(nullable: false),
                         CreatedAt = c.DateTime(nullable: false),
+                        ImageUrl = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -178,6 +191,7 @@ namespace BookNGo.Migrations
             DropForeignKey("dbo.Houses", "OwnerId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Houses", "LocationId", "dbo.Locations");
+            DropForeignKey("dbo.Images", "HouseId_HouseId", "dbo.Houses");
             DropForeignKey("dbo.HouseFeatures", "Feature_FeatureId", "dbo.Features");
             DropForeignKey("dbo.HouseFeatures", "House_HouseId", "dbo.Houses");
             DropForeignKey("dbo.Houses", "CategoryId", "dbo.Categories");
@@ -192,6 +206,7 @@ namespace BookNGo.Migrations
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", new[] { "Location_LocationId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Images", new[] { "HouseId_HouseId" });
             DropIndex("dbo.Houses", new[] { "OwnerId" });
             DropIndex("dbo.Houses", new[] { "CategoryId" });
             DropIndex("dbo.Houses", new[] { "LocationId" });
@@ -203,6 +218,7 @@ namespace BookNGo.Migrations
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.Locations");
+            DropTable("dbo.Images");
             DropTable("dbo.Houses");
             DropTable("dbo.Features");
             DropTable("dbo.Categories");

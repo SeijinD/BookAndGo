@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BookNGo.Models;
+using System.IO;
 
 namespace BookNGo.Controllers
 {
@@ -148,7 +149,7 @@ namespace BookNGo.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
@@ -164,6 +165,13 @@ namespace BookNGo.Controllers
                     var location = db.Locations.FirstOrDefault(i => i.LocationId == model.LocationId);
                     var createdUser = db.Users.FirstOrDefault(i => i.Email == model.Email);
                     createdUser.Location = location;
+
+                    //Ιmages
+                    string fileName = "Image/" + Guid.NewGuid().ToString() + ".jpg";
+                    createdUser.ImageUrl = fileName;
+                    Image.SaveAs(Path.Combine(Server.MapPath("~"), fileName));
+                    
+
                     db.SaveChanges();
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

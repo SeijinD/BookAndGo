@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookNGo.Models;
-using BookNGo.ViewModels;
 using Microsoft.AspNet.Identity;
 
 namespace BookNGo.Controllers
@@ -49,18 +48,18 @@ namespace BookNGo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            HouseImage house = new HouseImage();
-            house.House = db.Houses.Find(id);
-            var location = db.Locations.Where(x => x.LocationId == house.House.LocationId).FirstOrDefault();
-            house.House.Location = location;
-            var category = db.Categories.Where(x => x.CategoryId == house.House.CategoryId).FirstOrDefault();
-            house.House.Category = category;
+            House house = new House();
+            house = db.Houses.Find(id);
+            var location = db.Locations.Where(x => x.LocationId == house.LocationId).FirstOrDefault();
+            house.Location = location;
+            var category = db.Categories.Where(x => x.CategoryId == house.CategoryId).FirstOrDefault();
+            house.Category = category;
             if (house == null)
             {
                 return HttpNotFound();
             }
-            List<Image> image = db.Images.Where(x => x.HouseId.HouseId == house.House.HouseId).ToList();
-            house.House.Images = image;
+            List<Image> image = db.Images.Where(x => x.HouseId.HouseId == house.HouseId).ToList();
+            house.Images = image;
             return View(house);
         }
 
@@ -153,7 +152,7 @@ namespace BookNGo.Controllers
                 house.Category = category;
                 db.Entry(house).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyHouses", "Houses");
             }
             return View(house);
         }
@@ -182,7 +181,7 @@ namespace BookNGo.Controllers
             House house = db.Houses.Find(id);
             db.Houses.Remove(house);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("MyHouses", "Houses");
         }
 
         protected override void Dispose(bool disposing)

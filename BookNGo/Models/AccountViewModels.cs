@@ -102,6 +102,9 @@ namespace BookNGo.Models
         public Location Location { get; set; } //ενα Location εχει πολλους User(1-n)
 
         public int LocationId { get; set; }
+
+        [Display(Name = "Photo")]
+        public string ImageUrl { get; set; }
     }
 
     public class ResetPasswordViewModel
