@@ -14,15 +14,15 @@
 <div id="myCarousel" class="carousel slide container-fluid "style="padding:0; margin:0;" data-ride="carousel">
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <p class="myform2">Welcome BookNGo!</p>
+            <p class="myform2">Welcome To BookNGo!</p>
             <img src="~/Image/house1.jpeg" class="img-responsive" id="carousel-img">
         </div>
         <div class="item">
-            <p class="myform2">Welcome BookNGo!</p>
+            <p class="myform2">Welcome To BookNGo!</p>
             <img src="~/Image/house2.jpeg" class="img-responsive" id="carousel-img">
         </div>
         <div class="item">
-            <p class="myform2">Welcome BookNGo!</p>
+            <p class="myform2">Welcome To BookNGo!</p>
             <img src="~/Image/house3.jpeg" class="img-responsive" id="carousel-img">
         </div>
     </div>
@@ -84,14 +84,14 @@
                 <div class="desc" style="font-size: 25px;">@Html.DisplayFor(modelItem => item.Location.LocationName)</div>
                 <div class="desc" style="font-size: 20px;">@Html.DisplayFor(modelItem => item.PricePerNight)</div>
             </div>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <div class="bottom">
-                    @Html.ActionLink(item.Title, "Details", new { id = item.HouseId }, new { @class = "btn btn-primary btn-sm" })
-                    @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = item.HouseId }, new { @class = "btn btn-warning btn-sm" })
-                </div>
-            }
-        </div>
+            <div class="bottom">
+                @if (User.Identity.IsAuthenticated)
+                {
+                     @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = item.HouseId }, new { @class = "btn btn-warning btn-sm" })
+                }
+                @Html.ActionLink(item.Title, "Details", new { id = item.HouseId }, new { @class = "btn btn-primary btn-sm" })
+            </div>
+            </div>
     </div>
 }
 
