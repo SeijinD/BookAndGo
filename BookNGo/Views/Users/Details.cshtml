@@ -10,36 +10,38 @@
 
 @if (Model.ImageUrl != null)
 {
-    <div>
-        <img src="@Url.Content("/" + Model.ImageUrl)" style="background-size: cover; height: 350px; width: 350px;" />
+    <div class="col-md-4">
+        <div class="card hovercard">
+            <img src="@Url.Content("/" + Model.ImageUrl)" style="background-size: cover; width: 100%;" />
+        </div>
     </div>
-}
+ }
 
-<table class="table table-striped table-hover">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.UserName)</th>
-        <th>@Html.DisplayNameFor(model => model.FirstName)</th>
-        <th>@Html.DisplayNameFor(model => model.LastName)</th>
-        <th>@Html.DisplayNameFor(model => model.Email)</th>
-        <th>@Html.DisplayNameFor(model => model.Gender)
-        <th>@Html.DisplayNameFor(model => model.DateOfBirth)</th>
-        <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
-        @*<th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>*@
-    </tr>
-    <tr style="font-size: 115%; padding-top: 15px;">
-        <td>@Html.DisplayFor(model => model.UserName)</td>
-        <td>@Html.DisplayFor(model => model.FirstName)</td>
-        <td>@Html.DisplayFor(model => model.LastName)</td>
-        <td>@Html.DisplayFor(model => model.Email)</td>
-        <td>@Html.DisplayFor(model => model.Gender)
-        <td>@Html.DisplayFor(model => model.DateOfBirth)</td>
-        <td>@Html.DisplayFor(model => model.CreatedAt)</td>
-        @*<td>@Html.DisplayFor(model => model.PhoneNumber)</td>*@
-    </tr>
-</table>
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                <th>@Html.DisplayNameFor(model => model.Gender)
+                <th>@Html.DisplayNameFor(model => model.DateOfBirth)</th>
+                <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
+                @*<th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>*@
+            </tr>
+            <tr style="font-size: 115%; padding-top: 15px;">
+                <td>@Html.DisplayFor(model => model.UserName)</td>
+                <td>@Html.DisplayFor(model => model.FirstName)</td>
+                <td>@Html.DisplayFor(model => model.LastName)</td>
+                <td>@Html.DisplayFor(model => model.Email)</td>
+                <td>@Html.DisplayFor(model => model.Gender)
+                <td>@Html.DisplayFor(model => model.DateOfBirth)</td>
+                <td>@Html.DisplayFor(model => model.CreatedAt)</td>
+                @*<td>@Html.DisplayFor(model => model.PhoneNumber)</td>*@
+            </tr>
+        </table>
 
-<div>
-    @Html.ActionLink("Edit Account", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm" })
-    @Html.ActionLink("Change your password", "ChangePassword", "Manage", new { id = Model.Id }, new { @class = "btn btn-warning btn-sm" })
-    @Html.ActionLink("Delete Account", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger btn-sm" })
-</div>
+        <div>
+            @Html.ActionLink("Edit Account", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-sm" })
+            @Html.ActionLink("Change your password", "ChangePassword", "Manage", new { id = Model.Id }, new { @class = "btn btn-warning btn-sm" })
+            @Html.ActionLink("Delete Account", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger btn-sm" })
+        </div>

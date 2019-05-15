@@ -9,7 +9,6 @@ using System.Web.Mvc;
 using BookNGo.Models;
 using Microsoft.AspNet.Identity;
 
-
 namespace BookNGo.Controllers
 {
     public class HomeController : Controller
@@ -26,8 +25,8 @@ namespace BookNGo.Controllers
 
             if (startDate == null && endDate == null && location == 0 && category == 0 && occupancy == 0)
             {
-                var queryTop = db.Houses.Include(h => h.Images).OrderByDescending(t => t.PricePerNight).Take(3);
-                return View(queryTop.ToList());
+                var queryTop = db.Houses.Include(h => h.Images).OrderByDescending(t => t.PricePerNight).Take(4);
+                return View("Index","_LayoutHome", queryTop.ToList());
             }
 
             //var Houses = db.Houses.ToList();
@@ -91,9 +90,9 @@ namespace BookNGo.Controllers
                     }
                 }
 
-                return View(query2);
+                return View("Index", "_LayoutHome", query2);
             }
-            return View(queryEmpty);
+            return View("Index", "_LayoutHome",queryEmpty);
         }
 
         // GET: Houses/Details/5

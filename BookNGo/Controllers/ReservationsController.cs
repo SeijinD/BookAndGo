@@ -88,7 +88,7 @@ namespace BookNGo.Controllers
         [Authorize]
         public ActionResult BookIt(int houseId)
         {
-            ViewBag.House = db.Houses.Find(houseId);
+            ViewBag.House = db.Houses.Find(houseId);           
             return View();
         }
 

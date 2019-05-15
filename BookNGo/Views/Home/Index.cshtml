@@ -6,45 +6,76 @@
 
 @using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
-    <form>
-        <h2>Search for houses</h2>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.Label("startDate", "Arrival:", new { @class="magnify-label-100"})
-            @Html.TextBox("startDate", "", new { @class = "form-control", type = "date" })
-            @Html.ValidationMessage("startDate", "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.Label("endDate", "Departure:", new { @class = "magnify-label-100" })
-            @Html.TextBox("endDate", "", new { @class = "form-control", type = "date" })
-            @Html.ValidationMessage("endDate", "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.Label("location", "Location:", new { @class = "magnify-label-100" })
-            @Html.DropDownList("location", (SelectList)ViewBag.Location, "Select your location", htmlAttributes: new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            @Html.Label("category", "Category:", new { @class = "magnify-label-100" })
-            @Html.DropDownList("category", (SelectList)ViewBag.Category, "Select a category", htmlAttributes: new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            @Html.Label("occupancy", "Visitors:", new { @class = "magnify-label-100" })
-            @Html.TextBox("occupancy", "", new { @class = "form-control", placeholder = "Number of visitors" })
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Search" class="btn btn-primary btn-sm" />
-        </div>
-    </form>
+
 }
+
+@* Code for the Carousel *@
+<div class="container-fluid" ></div>
+<div id="myCarousel" class="carousel slide container-fluid "style="padding:0; margin:0;" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <p class="myform2">Welcome BookNGo!</p>
+            <img src="~/Image/house1.jpeg" class="img-responsive" id="carousel-img">
+        </div>
+        <div class="item">
+            <p class="myform2">Welcome BookNGo!</p>
+            <img src="~/Image/house2.jpeg" class="img-responsive" id="carousel-img">
+        </div>
+        <div class="item">
+            <p class="myform2">Welcome BookNGo!</p>
+            <img src="~/Image/house3.jpeg" class="img-responsive" id="carousel-img">
+        </div>
+    </div>
+
+    @* Code for the Form *@
+    <div class="vertical-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <form class="myform">
+                        <h2>Search for houses</h2>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.Label("startDate", "Arrival:", new { @class = "magnify-label-100" })
+                            @Html.TextBox("startDate", "", new { @class = "form-control", type = "date" })
+                            @Html.ValidationMessage("startDate", "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("endDate", "Departure:", new { @class = "magnify-label-100" })
+                            @Html.TextBox("endDate", "", new { @class = "form-control", type = "date" })
+                            @Html.ValidationMessage("endDate", "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("location", "Location:", new { @class = "magnify-label-100" })
+                            @Html.DropDownList("location", (SelectList)ViewBag.Location, "Select your location", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("category", "Category:", new { @class = "magnify-label-100" })
+                            @Html.DropDownList("category", (SelectList)ViewBag.Category, "Select a category", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("occupancy", "Visitors:", new { @class = "magnify-label-100" })
+                            @Html.TextBox("occupancy", "", new { @class = "form-control", placeholder = "Number of visitors" })
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Search" class="btn btn-primary btn-sm" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @foreach (var item in Model)
 {
     <div class="col-md-4">
-        <div class="card hovercard" style="background-color: black;">
+        <div class="card hovercard" style="background-color: #000000;">
             <!-- Bind HouseId with ImageId -->
             <div>
-                <img src="@Url.Content("/" + item.Images.First().ImageUrl)" style="background-size: cover; height: 230px; width: 350px;" />
+                <img src="@Url.Content("/" + item.Images.First().ImageUrl)" style="background-size: cover; width: 100%;" />
             </div>
             <div class="info">
                 <div class="title">
@@ -64,33 +95,3 @@
     </div>
 }
 
-@*@foreach (var item in Model)
-    {
-        <!-- Add class with col-md-4 -->
-        <!-- Remove the div class -->
-        <div class="col-md-4">
-            <div class="card hovercard" style="background-color: powderblue; height: 400px">
-                <!-- Bind HouseId with ImageId -->
-                <div>
-                    <img src="@Url.Content("/" + item.Images.First().ImageUrl)" style="background-size: cover; height: 230px; width: 350px;" />
-                </div>
-                <div class="info">
-                    <div class="title">
-                        <button class="btn btn-info bnt-sm text-center text-capitalize" style="border-radius: 40px; font-size: 25px;">
-                            @Html.ActionLink(item.Title, "Details", new { id = item.HouseId })
-                        </button>
-                    </div>
-                    <div class="desc" style="font-size: 25px;">@Html.DisplayFor(modelItem => item.Location.LocationName)</div>
-                    <div class="desc" style="font-size: 20px;">@Html.DisplayFor(modelItem => item.PricePerNight)</div>
-                </div>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <div class="bottom">
-                        <button style="background-color: rgb(0, 169, 255); border-radius: 40px; font-size: 25px;">
-                            @Html.ActionLink("Book It", "BookIt", "Reservations", new { houseId = item.HouseId }, null)
-                        </button>
-                    </div>
-                }
-            </div>
-        </div>
-    }*@
