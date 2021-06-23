@@ -1,6 +1,23 @@
 # CodeHub Project
 ## Name: BookNGo
 
+### Technologies:
+* ASP.NET MVC
+* Bootstrap
+* HTML + CSS + JavaScript
+* Entiry Framework
+
+### Tools:
+* Visual Studio 2017
+* SQL Server
+* Postman
+
+### Team Managment Tools:
+* Discord
+* Slack
+* Google Docs
+* Trello
+
 ### Home Without Login
 ![](https://github.com/SeijinD/BookNGo/blob/master/Images/Home%20Without%20Login.png)
 ### Home With Login
